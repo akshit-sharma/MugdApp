@@ -1,39 +1,60 @@
 package org.mugd.mugdapp;
 
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class CustomListItem extends BaseAdapter {
 
-    String [] result;
     Context context;
-    int [] imageId;
+
+    String [] title;
+    String [] imageId;
+    String [] smallDescription;
+    String [] venue;
+    String [] datetime;
+
     private static LayoutInflater inflater = null;
 
-    public CustomListItem(CustomListViewShow mainActivity, String[] prgmNameList, int[] prgmImages){
-        result = prgmNameList;
+    public CustomListItem(CustomListViewShow mainActivity, String[] prgmNameList){
+        title = prgmNameList;
         context = mainActivity;
-        imageId = prgmImages;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageId = null;
+        smallDescription = null;
+        venue = null;
+        datetime = null;
+    }
 
+    public CustomListItem(CustomListViewShow mainActivity, String[] prgmNameList, String[] prgmImages){
+        this(mainActivity,prgmNameList);
+        imageId = prgmImages;
+    }
+
+    public CustomListItem(CustomListViewShow mainActivity, String[] prgmNameList
+            , String[] smallDescription,String[] venue, String[] datetime){
+        this(mainActivity,prgmNameList);
+        this.smallDescription = smallDescription;
+        this.venue = venue;
+        this.datetime = datetime;
+    }
+
+    public CustomListItem(CustomListViewShow mainActivity, String[] prgmNameList
+            , String[] prgmImages, String[] smallDescription,String[] venue
+            , String[] datetime){
+        this(mainActivity,prgmNameList, smallDescription, venue, datetime);
+        this.imageId = prgmImages;
     }
 
     @Override
     public int getCount() {
-        return result.length;
+        return title.length;
     }
 
     @Override
@@ -51,10 +72,22 @@ public class CustomListItem extends BaseAdapter {
         Holder holder = new Holder();
         View rowView;
         rowView = inflater.inflate(R.layout.activity_custom_list_item, null);
-        holder.textView = (TextView) rowView.findViewById(R.id.textView1);
-        holder.imageView = (ImageView) rowView.findViewById(R.id.imageView1);
-        holder.textView.setText(result[position]);
-        holder.imageView.setImageResource(imageId[position]);
+        //holder.textView = (TextView) rowView.findViewById(R.id.title);
+         //holder.textView.setText(title[position]);
+        display(position,title,R.id.title,rowView);
+
+        //holder.imageView = (ImageView) rowView.findViewById(R.id.smallImage);
+        //holder.imageView.setImageResource(Integer.parseInt(imageId[position]));
+        display(position,imageId,R.id.smallImage,rowView);
+
+        display(position,smallDescription,R.id.smallDesc,rowView);
+
+        display(position,venue,R.id.venue,rowView);
+
+        display(position,datetime,R.id.datetime,rowView);
+
+
+
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +100,49 @@ public class CustomListItem extends BaseAdapter {
     public class Holder{
         TextView textView;
         ImageView imageView;
+    }
+
+    private boolean display(int position,Object[] value, int displayViewID, View inflatedView){
+        if(value==null)
+            return Boolean.parseBoolean(null);
+        return display(value[position],inflatedView.findViewById(displayViewID));
+    }
+
+    private boolean isInt(String item){
+        boolean flag;
+
+        flag = false;
+
+        try {
+            Integer.parseInt(item);
+            flag = true;
+        }catch (NumberFormatException nfe){
+
+        }
+
+        return flag;
+    }
+
+    private boolean display(Object value, View displaySpace){
+
+        boolean everythingOK;
+        everythingOK = false;
+
+        if(value==null)
+            return everythingOK;
+
+        if(displaySpace instanceof TextView){
+            ((TextView) displaySpace).setText(value.toString());
+            everythingOK = true;
+        }else if(displaySpace instanceof ImageView){
+            if(isInt(value.toString())) {
+                ((ImageView) displaySpace).setImageResource(Integer.parseInt(value.toString()));
+                everythingOK = true;
+            }
+        }
+
+        return everythingOK;
+
     }
 
 }

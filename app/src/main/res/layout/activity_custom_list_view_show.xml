@@ -10,12 +10,12 @@
     tools:context="org.mugd.mugdapp.CustomListViewShow">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:text=" Computer Languages..." />
+        android:text="Change this Text" />
 
     <ListView
         android:id="@+id/listView"

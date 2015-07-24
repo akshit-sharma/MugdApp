@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.mugd.mugdapp" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +25,10 @@
         <activity
             android:name=".NavDrawerShow"
             android:label="@string/title_activity_nav_drawer_show" >
+        </activity>
+        <activity
+            android:name=".AzureMobileService"
+            android:label="@string/title_activity_azure_mobile_service" >
         </activity>
     </application>
 

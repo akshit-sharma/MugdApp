@@ -3,7 +3,6 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/menu/drawer_view.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/values-v19/styles.xml" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

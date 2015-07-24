@@ -1,25 +1,35 @@
 package org.mugd.mugdapp;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+
+import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class AzureMobileService extends AppCompatActivity {
+
+    AzureMobileServiceInteraction amsi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_azure_mobile_service);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        amsi = new AzureMobileServiceInteraction(this);
+        amsi.execute();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_azure_mobile, menu);
         return true;
     }
 
@@ -38,19 +48,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showListView(View view){
-        Intent intent = new Intent(this,CustomListViewShow.class);
-        startActivity(intent);
-    }
-
-    public void showNavDrawer(View view){
-        Intent intent = new Intent(this,NavDrawerShow.class);
-        startActivity(intent);
-    }
-
-    public void azureMobileService(View view){
-        Intent intent = new Intent(this,AzureMobileService.class);
-        startActivity(intent);
-    }
 
 }

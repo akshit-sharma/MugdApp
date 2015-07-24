@@ -20,6 +20,10 @@
             android:name=".CustomListViewShow"
             android:label="@string/title_activity_custom_list_view_show" >
         </activity>
+        <activity
+            android:name=".NavDrawerShow"
+            android:label="@string/title_activity_nav_drawer_show" >
+        </activity>
     </application>
 
 </manifest>

@@ -2,11 +2,13 @@ package org.mugd.mugdapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.MobileServiceException;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 
@@ -63,14 +65,21 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                     eventsList.add(item);
                     Log.v("AMSI_date", " " + item.Date);
                 }
+                ClientDatabaseInteraction cbi;
+                cbi = new ClientDatabaseInteraction(context);
                 Log.v("AMSI", "Values are");
                 for(Events item : eventsList){
+                    cbi.onCreate(cbi.getWritableDatabase());
+                    cbi.insertCommand("Events", item);
                     Log.v("AMSI"," "+item);
                     Log.v("AMSI_date", " " + item.Date);
                 }
                 Log.v("AMSI", "Finished background task");
+                cbi.closeDB();
             }catch (Exception exception){
-                exception.printStackTrace();
+                Log.e("AMSI", "Exception starting");
+                Log.e("AMSI", exception.getMessage());
+                Log.e("AMSI", "Exception ending");
             }
             return eventsList;
     }
@@ -78,13 +87,15 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
     @Override
     protected void onPostExecute(List<Events> result){
         super.onPostExecute(result);
-
+        /*
         Intent intentTest = new Intent(context,CustomListViewShow.class);
         CustomListViewShow.alternative = result;
         Bundle bundle = new Bundle();
         bundle.putBoolean("Events",true);
         intentTest.putExtras(bundle);
         context.startActivity(intentTest);
+        */
     }
+
 
 }

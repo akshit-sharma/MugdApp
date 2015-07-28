@@ -40,7 +40,7 @@ public class Events {
         fieldsMaped = new HashMap();
 
         fieldsMaped.put("id",String.class);
-        fieldsMaped.put("date",Date.class);
+        fieldsMaped.put("Date",Date.class);
         fieldsMaped.put("Title",String.class);
         fieldsMaped.put("Desc",String.class);
         fieldsMaped.put("image",String.class);
@@ -146,13 +146,13 @@ public class Events {
 
     }
 
-    private static Object extract(Events event, String field){
+    public static Object extract(Events event, String field){
 
         Object value;
 
         switch (field){
             case "id" : return event.id;
-            case "date" : return event.Date;
+            case "Date" : return event.Date;
             case "Title" : return event.Title;
             case "Desc" : return event.Desc;
             case "image" : return event.image;

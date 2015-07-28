@@ -63,7 +63,7 @@ public class CustomListViewShow extends AppCompatActivity {
                     Events.particularFieldAsStringArray("Title",events),
                     Events.particularFieldAsStringArray("Desc",events),
                     Events.particularFieldAsStringArray("college",events),
-                    Events.particularFieldAsStringArray("date",events)
+                    Events.particularFieldAsStringArray("Date",events)
                     ));
         }
         else{

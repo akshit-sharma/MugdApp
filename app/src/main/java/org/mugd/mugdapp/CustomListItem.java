@@ -135,10 +135,21 @@ public class CustomListItem extends BaseAdapter {
             ((TextView) displaySpace).setText(value.toString());
             everythingOK = true;
         }else if(displaySpace instanceof ImageView){
-            if(isInt(value.toString())) {
-                ((ImageView) displaySpace).setImageResource(Integer.parseInt(value.toString()));
-                everythingOK = true;
-            }
+            Log.v("CustomListItem","ImageView detected");
+
+                if (isInt(value.toString())) {
+                    ((ImageView) displaySpace).setImageResource(Integer.parseInt(value.toString()));
+                    everythingOK = true;
+                }else{
+                    int loader = R.drawable.abc_spinner_mtrl_am_alpha;
+                    ImageView image = (ImageView) displaySpace;
+                    String image_url = value.toString();
+                    Log.v("CustomListItem","Image url : "+image_url);
+                    ImageLoader imgLoader = new ImageLoader(context);
+                    imgLoader.DisplayImage(image_url,loader,image);
+                    Log.v("CustomListItem","Image should be displayed");
+                    everythingOK = true;
+                }
         }
 
         return everythingOK;

@@ -65,17 +65,18 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                     eventsList.add(item);
                     Log.v("AMSI_date", " " + item.Date);
                 }
-                ClientDatabaseInteraction cbi;
-                cbi = new ClientDatabaseInteraction(context);
+               // ClientDatabaseInteraction cbi;
+               // cbi = new ClientDatabaseInteraction(context);
                 Log.v("AMSI", "Values are");
                 for(Events item : eventsList){
-                    cbi.onCreate(cbi.getWritableDatabase());
-                    cbi.insertCommand("Events", item);
+                   // cbi.onCreate(cbi.getWritableDatabase());
+                   // cbi.insertCommand("Events", item);
                     Log.v("AMSI"," "+item);
                     Log.v("AMSI_date", " " + item.Date);
+                    Log.v("AMSI_imageUri", " " + item.imageUri);
                 }
                 Log.v("AMSI", "Finished background task");
-                cbi.closeDB();
+               // cbi.closeDB();
             }catch (Exception exception){
                 Log.e("AMSI", "Exception starting");
                 Log.e("AMSI", exception.getMessage());
@@ -87,15 +88,12 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
     @Override
     protected void onPostExecute(List<Events> result){
         super.onPostExecute(result);
-        /*
         Intent intentTest = new Intent(context,CustomListViewShow.class);
         CustomListViewShow.alternative = result;
         Bundle bundle = new Bundle();
         bundle.putBoolean("Events",true);
         intentTest.putExtras(bundle);
         context.startActivity(intentTest);
-        */
     }
-
 
 }

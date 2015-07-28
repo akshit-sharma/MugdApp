@@ -61,6 +61,7 @@ public class CustomListViewShow extends AppCompatActivity {
 
             lv.setAdapter(new CustomListItem(this,
                     Events.particularFieldAsStringArray("Title",events),
+                    Events.particularFieldAsStringArray("imageUri",events),
                     Events.particularFieldAsStringArray("Desc",events),
                     Events.particularFieldAsStringArray("college",events),
                     Events.particularFieldAsStringArray("Date",events)

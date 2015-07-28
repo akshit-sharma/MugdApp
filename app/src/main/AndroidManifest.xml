@@ -3,6 +3,7 @@
     package="org.mugd.mugdapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -29,6 +30,10 @@
         <activity
             android:name=".AzureMobileService"
             android:label="@string/title_activity_azure_mobile_service" >
+        </activity>
+        <activity
+            android:name=".AndroidDatabaseManager"
+            android:label="@string/title_activity_android_database_manager" >
         </activity>
     </application>
 

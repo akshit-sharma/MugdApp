@@ -178,7 +178,8 @@ public class Events {
             case "id" : returnValue = event.id;
                             break;
             case "Date" : returnValue = formatter.format(event.Date);
-                            break;
+                           break;
+
             case "Title" : returnValue = event.Title;
                             break;
             case "Desc" :

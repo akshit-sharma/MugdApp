@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/cv"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="150dp"
+                    android:layout_height="fill_parent">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/eventImage"
+                        android:layout_alignParentLeft="true"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="200dp"
+                        android:maxWidth="200dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="false"
+                        android:layout_weight=".1"
+                        android:layout_gravity="center" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/eventImageProgressBar"
+                        android:layout_gravity="center" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Event Title"
+                        android:id="@+id/eventTitle"
+                        android:layout_toRightOf="@id/eventImage"
+                        android:layout_alignParentTop="true"
+                        android:textSize="30sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Event Small Desc"
+                        android:id="@+id/eventSmallDesc"
+                        android:layout_toRightOf="@id/eventImage"
+                        android:layout_alignParentTop="true"
+                        android:layout_below="@id/eventTitle"
+
+                        android:layout_marginTop="15dp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Event Venue"
+                            android:id="@+id/eventVenue"
+                            android:layout_toRightOf="@id/eventImage"
+                            android:layout_below="@id/eventSmallDesc"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="left|bottom" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Event ETA"
+                            android:id="@+id/eventETA"
+                            android:layout_toRightOf="@id/eventVenue"
+                            android:layout_gravity="bottom|right" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

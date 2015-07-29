@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':android-support-v7-cardview', ':android-support-v7-recyclerview'

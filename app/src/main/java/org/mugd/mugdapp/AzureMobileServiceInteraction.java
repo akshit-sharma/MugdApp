@@ -92,12 +92,9 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
     @Override
     protected void onPostExecute(List<Events> result){
         super.onPostExecute(result);
-        Intent intentTest = new Intent(context,CustomListViewShow.class);
-        CustomListViewShow.alternative = result;
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("Events",true);
-        intentTest.putExtras(bundle);
-        context.startActivity(intentTest);
+        Intent intentAllEvents = new Intent(context,FullEventsList.class);
+        FullEventsList.eventsList = result;
+        context.startActivity(intentAllEvents);
     }
 
 }

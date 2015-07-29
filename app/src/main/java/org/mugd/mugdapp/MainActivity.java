@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showListView(View view){
-        Intent intent = new Intent(this,CustomListViewShow.class);
+        Intent intent = new Intent(this,EventDetails.class);
         startActivity(intent);
     }
 

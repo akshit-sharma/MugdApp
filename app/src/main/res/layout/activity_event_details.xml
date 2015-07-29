@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="16dp"
     >
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cv"
+        android:id="@+id/cvImage"
         >
 
         <RelativeLayout
@@ -15,11 +16,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             >
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
                 <FrameLayout
                     android:layout_width="fill_parent"
@@ -48,12 +44,16 @@
 
                 </FrameLayout>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".4">
+        </RelativeLayout>
 
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cvEventDetails"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -64,6 +64,14 @@
                         android:textSize="30sp"
                         />
 
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cvEventTitle"
+        >
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -74,10 +82,9 @@
                             android:layout_height="wrap_content"
                             android:text="Event Venue"
                             android:id="@+id/eventVenue"
-                            android:layout_toRightOf="@id/eventImage"
-                            android:layout_below="@id/eventSmallDesc"
                             android:layout_alignParentTop="true"
-                            android:layout_gravity="left" />
+                            android:layout_gravity="top|left"
+                            android:layout_marginBottom="20dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -85,8 +92,19 @@
                             android:text="Event ETA"
                             android:id="@+id/eventETA"
                             android:layout_toRightOf="@id/eventVenue"
-                            android:layout_gravity="right" />
+                            android:layout_gravity="top|right"
+                            android:layout_marginBottom="20dp" />
                     </FrameLayout>
+
+        </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cvEventDescription"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -97,12 +115,10 @@
                         android:layout_alignParentTop="true"
                         android:layout_below="@id/eventTitle"
 
-                        android:layout_marginTop="15dp" />
+                        android:layout_marginTop="15dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp" />
 
-                </LinearLayout>
-            </LinearLayout>
-
-        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 

@@ -29,6 +29,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     //comment below two lines before running on device
-    compile project(':android-support-v7-cardview')
-    compile project(':android-support-v7-recyclerview')
+    //compile project(':android-support-v7-cardview')
+    //compile project(':android-support-v7-recyclerview')
 }

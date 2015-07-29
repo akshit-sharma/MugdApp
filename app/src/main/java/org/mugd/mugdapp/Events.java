@@ -34,6 +34,11 @@ public class Events {
     String __version;
 //    Date __deleted;
 
+    static boolean small;
+    private static int smallLimit = 15;
+    
+    private static final String TAG = "Events";
+
     static HashMap<String,Class> fieldsMaped;
 
     static {
@@ -71,14 +76,16 @@ public class Events {
     }
     */
 
-    public static String[] particularFieldAsStringArray(String field,ArrayList<Events> allEvents) {
+    public static String[] particularFieldAsStringArray(String field,ArrayList<Events> allEvents, boolean small) {
+        Events.small = small;
+
         String[] displayTerms;
         ArrayList allItems;
 
         allItems = particularFieldAsArray(field, allEvents);
 
         if (allItems == null) {
-            Log.e("EventsStatic", "value of allItems is null !!");
+            Log.e(TAG, "value of allItems is null !!");
 
         } else {
 
@@ -92,7 +99,7 @@ public class Events {
             }
 
             if (index != allItems.size()) {
-                Log.e("Events", "Something is wrong in converting to String Array");
+                Log.e(TAG, "Something is wrong in converting to String Array");
             }
 
             return  displayTerms;
@@ -102,72 +109,146 @@ public class Events {
 
     }
 
+    public static String[] particularFieldAsStringArray(String field,ArrayList<Events> allEvents) {
+
+        return particularFieldAsStringArray(field,allEvents,false);
+    }
+
     public static ArrayList particularFieldAsArray(String field,ArrayList<Events> allEvents){
 
         Class type = fieldsMaped.get(field);
 
-        Log.v("EventsStatic","name is "+fieldsMaped.get(field).getName());
-        Log.v("EventsStatic","class is "+fieldsMaped.get(field).getClass());
+        Log.v(TAG,"name is "+fieldsMaped.get(field).getName());
+        Log.v(TAG,"class is "+fieldsMaped.get(field).getClass());
 
         if(fieldsMaped.get(field).getName().toString().contains("String")) {
-            Log.v("EventsStatic", "String class detected");
+            Log.v(TAG, "String class detected");
             ArrayList<String> list = new ArrayList<>();
 
             for (Object eventObject : allEvents.toArray()) {
                 if (eventObject instanceof Events) {
                     Events events = (Events) eventObject;
-                    list.add((String)extract(events, field));
-                    Log.v("EventsStatic", "Added " + extract(events, field) + " for " + field);
+                    list.add((String)extract(events, field,Events.small));
+                    Log.v(TAG, "Added " + extract(events, field,Events.small) + " for " + field);
                 }
             }
 
             return list;
         }
         if(fieldsMaped.get(field).getName().toString().contains("Date")) {
-            Log.v("EventsStatic", "Date class detected");
+            Log.v(TAG, "Date class detected");
             ArrayList<String> list = new ArrayList<>();
-            SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d");
 
             for (Object eventObject : allEvents.toArray()) {
                 if (eventObject instanceof Events) {
                     Events events = (Events) eventObject;
-                    String dateValue = formatter.format((Date) extract(events, field));
+                    String dateValue = extract(events, field, true);
                     list.add(dateValue);
-                    Log.v("EventsStatic", "Added " + extract(events, field) + " for " + field);
+                    Log.v(TAG, "Added " + extract(events, field,true) + " for " + field);
                 }
             }
 
             return list;
         }
 
-        Log.e("EventsStatic", "This should not appear !!!");
+        Log.e(TAG, "This should not appear !!!");
 
         return null;
 
     }
 
-    public static Object extract(Events event, String field){
+
+
+    public static String extract(Events event, String field, boolean small){
+
+        Events.small = small;
+
+        SimpleDateFormat formatter;
+
+        if(Events.small){
+            formatter = new SimpleDateFormat("EEE, MMM d");
+        }else {
+            formatter = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+        }
 
         Object value;
+        String returnValue= null;
 
         switch (field){
-            case "id" : return event.id;
-            case "Date" : return event.Date;
-            case "Title" : return event.Title;
-            case "Desc" : return event.Desc;
-            case "image" : return event.image;
-            case "type" : return event.type;
-            case "college" : return event.college;
-            case "issueBy" : return event.issueBy;
-            case "containerName" : return event.containerName;
-            case "resourceName" : return event.resourceName;
-            case "sasQueryString" : return event.sasQueryString;
-            case "imageUri" : return event.imageUri;
-            case "__createdAt" : return event.__createdAt;
-            case "__updatedAt" : return event.__updatedAt;
-            case "__version" : return event.__version;
-            default: return null;
+            case "id" : returnValue = event.id;
+                            break;
+            case "Date" : returnValue = formatter.format(event.Date);
+                            break;
+            case "Title" : returnValue = event.Title;
+                            break;
+            case "Desc" :
+                if(!small) {
+                    returnValue = event.Desc;
+                }
+                else {
+                    if(event.Desc.length()>smallLimit) {
+                        int spaceIndex = event.Desc.substring(0, smallLimit).lastIndexOf(" ");
+                        if (spaceIndex != -1 && ((spaceIndex-smallLimit)<5)) {
+                            returnValue = event.Desc.substring(0, spaceIndex) + " ...";
+                        } else {
+                            returnValue = event.Desc.substring(0, smallLimit) + "...";
+                        }
+                    }
+                    else {
+                        returnValue = event.Desc;
+                    }
+                }
+                break;
+            case "image" : returnValue = event.image;
+                break;
+            case "type" : returnValue = event.type;
+                break;
+            case "college" :
+                if(!small) {
+                    returnValue = event.college;
+                }
+                else {
+                    if(event.college.length()>smallLimit){
+                        int smallLimit = Events.smallLimit-8;
+                        int comma = event.college.indexOf(",");
+                        if ((comma < smallLimit) && (comma != -1)) {
+                            returnValue = event.college.substring(0, comma + 1);
+                        }
+                        else {
+                            returnValue = event.college.substring(0, smallLimit) + "...";
+                        }
+                    }else {
+                        returnValue = event.college;
+                    }
+                }
+                break;
+            case "issueBy" : returnValue = event.issueBy;
+                break;
+            case "containerName" : returnValue = event.containerName;
+                break;
+            case "resourceName" : returnValue = event.resourceName;
+                break;
+            case "sasQueryString" : returnValue = event.sasQueryString;
+                break;
+            case "imageUri" : returnValue = event.imageUri;
+                break;
+            case "__createdAt" : returnValue = formatter.format(event.__createdAt);
+                break;
+            case "__updatedAt" : returnValue = formatter.format(event.__updatedAt);
+                break;
+            case "__version" : returnValue = event.__version;
+                break;
         }
+
+        Log.v(TAG,"returnValue is "+returnValue);
+        
+        return returnValue;
+
+    }
+
+    public static String extract(Events event, String field){
+
+        return extract(event, field, false);
 
     }
 

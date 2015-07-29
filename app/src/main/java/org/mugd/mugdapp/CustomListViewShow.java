@@ -1,11 +1,15 @@
 package org.mugd.mugdapp;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -62,9 +66,10 @@ public class CustomListViewShow extends AppCompatActivity {
             lv.setAdapter(new CustomListItem(this,
                     Events.particularFieldAsStringArray("Title",events),
                     Events.particularFieldAsStringArray("imageUri",events),
-                    Events.particularFieldAsStringArray("Desc",events),
-                    Events.particularFieldAsStringArray("college",events),
-                    Events.particularFieldAsStringArray("Date",events)
+                    Events.particularFieldAsStringArray("Desc",events,true),
+                    Events.particularFieldAsStringArray("college",events,true),
+                    Events.particularFieldAsStringArray("Date",events,true),
+                    Events.particularFieldAsStringArray("id",events)
                     ));
         }
         else{

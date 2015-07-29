@@ -35,6 +35,10 @@
             android:name=".AndroidDatabaseManager"
             android:label="@string/title_activity_android_database_manager" >
         </activity>
+        <activity
+            android:name=".EventShow"
+            android:label="@string/title_activity_event_show" >
+        </activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceException;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -58,7 +59,9 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
     @Override
     protected List<Events> doInBackground(Void... params) {
             try{
-                final MobileServiceList<Events> result = mEventsTable.execute().    get();
+                final MobileServiceList<Events> result = mEventsTable
+                        .orderBy("__createdAt", QueryOrder.Descending)
+                        .execute().    get();
                 Log.v("AMSI", "Running background task");
                 eventsList.clear();
                 for(Events item : result){
@@ -72,6 +75,7 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                    // cbi.onCreate(cbi.getWritableDatabase());
                    // cbi.insertCommand("Events", item);
                     Log.v("AMSI"," "+item);
+                    Log.v("AMSI_id", " " + item.id);
                     Log.v("AMSI_date", " " + item.Date);
                     Log.v("AMSI_imageUri", " " + item.imageUri);
                 }

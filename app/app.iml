@@ -100,5 +100,7 @@
     <orderEntry type="library" exported="" name="design-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-22.2.0" level="project" />
+    <orderEntry type="module" module-name="android-support-v7-recyclerview" exported="" />
+    <orderEntry type="module" module-name="android-support-v7-cardview" exported="" />
   </component>
 </module>

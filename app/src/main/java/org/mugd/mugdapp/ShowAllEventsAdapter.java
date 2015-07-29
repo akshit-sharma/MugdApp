@@ -1,8 +1,13 @@
 package org.mugd.mugdapp;
 
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.net.Inet4Address;
 import java.util.List;
 
 
@@ -17,7 +23,7 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
 
     List<Events> events;
 
-    
+
 
     @Override
     public AllEventsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -33,6 +39,7 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
         holder.eventSmallDec.setText(Events.extract(events.get(i),"Desc",true));
         holder.eventVenue.setText(Events.extract(events.get(i),"college",true));
         holder.eventTime.setText(Events.extract(events.get(i),"Date",true));
+        holder.event = events.get(i);
     }
 
     @Override
@@ -45,7 +52,11 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
     }
 
     public static class AllEventsViewHolder extends RecyclerView.ViewHolder{
+
+        private static String TAG = "AllEventsViewHolder";
+
         CardView cv;
+        Events event;
         ImageView eventImage;
         ProgressBar eventImageProgressBar;
         TextView eventTitle;
@@ -62,6 +73,23 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
             eventSmallDec = (TextView) itemView.findViewById(R.id.eventSmallDesc);
             eventVenue = (TextView) itemView.findViewById(R.id.eventVenue);
             eventTime = (TextView) itemView.findViewById(R.id.eventETA);
+
+            cv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG, "CV Clicked !!");
+
+                    Intent intent = new Intent(cv.getContext().getApplicationContext(),EventDetails.class);
+//                    String transitionName = cv.getContext().getApplicationContext().getString(R.string.transition_album_cover);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    EventDetails.event = event;
+//                    ActivityOptionsCompat options =
+//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
+//
+//                            )
+                    cv.getContext().getApplicationContext().startActivity(intent);
+                }
+            });
         }
 
     }

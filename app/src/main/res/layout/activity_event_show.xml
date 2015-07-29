@@ -24,7 +24,8 @@
             android:id="@+id/eventImage"
             android:adjustViewBounds="true"
             android:layout_gravity="top|center_horizontal"
-            android:layout_weight=".5" />
+            android:layout_weight=".5"
+            android:transitionName="@string/transition_album_cover" />
 
         <LinearLayout
             android:orientation="vertical"

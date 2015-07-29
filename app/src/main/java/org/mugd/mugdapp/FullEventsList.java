@@ -1,12 +1,15 @@
 package org.mugd.mugdapp;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.List;
 
@@ -29,7 +32,15 @@ public class FullEventsList extends AppCompatActivity {
 
         ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(eventsList);
         rv.setAdapter(adapter);
+/*
+        rv.setOnClickListener(new RecyclerView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v.getRootView(), "Work Na " + v.toString(), Snackbar.LENGTH_SHORT).show();
 
+            }
+        });
+*/
     }
 
     @Override

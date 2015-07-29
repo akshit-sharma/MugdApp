@@ -18,5 +18,6 @@
     <string name="title_activity_full_events_list">FullEventsList</string>
     <string name="title_activity_show_all_events_adapter">ShowAllEventsAdapter</string>
     <string name="title_activity_event_details">EventDetails</string>
+    <string name="transition_album_cover">I do not know what to write here</string>
 
 </resources>

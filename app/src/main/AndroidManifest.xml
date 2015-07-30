@@ -20,24 +20,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CustomListViewShow"
-            android:label="@string/title_activity_custom_list_view_show" >
-        </activity>
-        <activity
             android:name=".NavDrawerShow"
             android:label="@string/title_activity_nav_drawer_show" >
-        </activity>
-        <activity
-            android:name=".AzureMobileService"
-            android:label="@string/title_activity_azure_mobile_service" >
-        </activity>
-        <activity
-            android:name=".AndroidDatabaseManager"
-            android:label="@string/title_activity_android_database_manager" >
-        </activity>
-        <activity
-            android:name=".EventShow"
-            android:label="@string/title_activity_event_show" >
         </activity>
         <activity
             android:name=".FullEventsList"
@@ -51,6 +35,12 @@
             android:name=".EventDetails"
             android:label="@string/title_activity_event_details" >
         </activity>
+
+        <service
+            android:name=".AzureMobileService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

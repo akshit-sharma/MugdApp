@@ -16,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Intent ams = new Intent(this,AzureMobileService.class);
+        startService(ams);
+
     }
 
     @Override
@@ -40,19 +45,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showListView(View view){
-        Intent intent = new Intent(this,EventDetails.class);
-        startActivity(intent);
-    }
-
     public void showNavDrawer(View view){
         Intent intent = new Intent(this,NavDrawerShow.class);
         startActivity(intent);
     }
 
     public void azureMobileService(View view){
-        Intent intent = new Intent(this,AzureMobileService.class);
-        startActivity(intent);
+        Intent intentAllEvents = new Intent(this,FullEventsList.class);
+        startActivity(intentAllEvents);
     }
 
 }

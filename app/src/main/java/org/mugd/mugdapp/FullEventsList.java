@@ -49,16 +49,21 @@ public class FullEventsList extends AppCompatActivity {
 */
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+    private void refreshList(){
         ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(this);
         eventsList = cbi.initialiseEvents();
         cbi.closeDB();
 
         ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(this,eventsList);
         rv.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        this.refreshList();
+
     }
 
     @Override

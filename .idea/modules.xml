@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MugdApp.iml" filepath="$PROJECT_DIR$/MugdApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-support-v7-cardview/android-support-v7-cardview.iml" filepath="$PROJECT_DIR$/android-support-v7-cardview/android-support-v7-cardview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-support-v7-recyclerview/android-support-v7-recyclerview.iml" filepath="$PROJECT_DIR$/android-support-v7-recyclerview/android-support-v7-recyclerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

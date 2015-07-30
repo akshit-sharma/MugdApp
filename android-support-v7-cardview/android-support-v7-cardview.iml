@@ -21,6 +21,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="android-support-v7-cardview.android-support-v7-cardview" level="project" />
   </component>
 </module>

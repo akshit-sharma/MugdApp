@@ -1,5 +1,6 @@
 package org.mugd.mugdapp;
 
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +25,11 @@ public class FullEventsList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT >= 21) {
+            getWindow().setSharedElementExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.shared_element_transition_events));
+        }
+
         setContentView(R.layout.activity_full_events_list);
 
         rv = (RecyclerView) findViewById(R.id.rv);
@@ -30,8 +38,6 @@ public class FullEventsList extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(llm);
 
-        ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(eventsList);
-        rv.setAdapter(adapter);
 /*
         rv.setOnClickListener(new RecyclerView.OnClickListener() {
             @Override
@@ -41,6 +47,18 @@ public class FullEventsList extends AppCompatActivity {
             }
         });
 */
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(this);
+        eventsList = cbi.initialiseEvents();
+        cbi.closeDB();
+
+        ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(this,eventsList);
+        rv.setAdapter(adapter);
     }
 
     @Override

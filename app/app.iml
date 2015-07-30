@@ -91,8 +91,8 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="guava-18.0" level="project" />
     <orderEntry type="library" exported="" name="azure-mobile-services-android-sdk-2.0.3" level="project" />
+    <orderEntry type="library" exported="" name="guava-18.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
@@ -100,7 +100,5 @@
     <orderEntry type="library" exported="" name="design-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-22.2.0" level="project" />
-    <orderEntry type="module" module-name="android-support-v7-recyclerview" exported="" />
-    <orderEntry type="module" module-name="android-support-v7-cardview" exported="" />
   </component>
 </module>

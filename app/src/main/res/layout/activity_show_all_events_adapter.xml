@@ -9,7 +9,6 @@
         android:layout_height="150dp"
         android:id="@+id/cv"
         android:clickable="true"
-        android:background="@color/divider"
         android:foreground="?android:attr/selectableItemBackground"
         >
 
@@ -42,12 +41,13 @@
                         android:layout_alignParentBottom="false"
                         android:layout_weight=".1"
                         android:layout_gravity="center"
-                    android:transitionName="@string/transition_album_cover" />
+                    android:transitionName="eventImageTransition" />
 
                     <ProgressBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/eventImageProgressBar"
+                        android:transitionName="eventProgressTransition"
                         android:layout_gravity="center" />
 
                 </FrameLayout>
@@ -64,6 +64,7 @@
                         android:layout_height="wrap_content"
                         android:text="Event Title"
                         android:id="@+id/eventTitle"
+                        android:transitionName="eventTitleTransition"
                         android:layout_toRightOf="@id/eventImage"
                         android:layout_alignParentTop="true"
                         android:textSize="30sp"
@@ -74,6 +75,7 @@
                         android:layout_height="wrap_content"
                         android:text="Event Small Desc"
                         android:id="@+id/eventSmallDesc"
+                        android:transitionName="eventSmallDTransition"
                         android:layout_toRightOf="@id/eventImage"
                         android:layout_alignParentTop="true"
                         android:layout_below="@id/eventTitle"
@@ -90,6 +92,7 @@
                             android:text="Event Venue"
                             android:id="@+id/eventVenue"
                             android:layout_toRightOf="@id/eventImage"
+                            android:transitionName="eventVenueTransition"
                             android:layout_below="@id/eventSmallDesc"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="left|bottom" />
@@ -99,6 +102,7 @@
                             android:layout_height="wrap_content"
                             android:text="Event ETA"
                             android:id="@+id/eventETA"
+                            android:transitionName="eventETATransition"
                             android:layout_toRightOf="@id/eventVenue"
                             android:layout_gravity="bottom|right" />
                     </FrameLayout>

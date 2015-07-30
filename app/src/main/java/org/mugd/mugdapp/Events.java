@@ -3,6 +3,7 @@ package org.mugd.mugdapp;
 import android.util.Log;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -154,6 +155,79 @@ public class Events {
         Log.e(TAG, "This should not appear !!!");
 
         return null;
+
+    }
+
+
+
+
+    public static Events insert(String value, String field,Events event){
+
+        SimpleDateFormat formatter;
+        Events.small = false;
+
+        if(Events.small){
+            formatter = new SimpleDateFormat("EEE, MMM d");
+        }else {
+            formatter = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+        }
+
+        Log.v(TAG, "value addeding "+field+ " is " + value);
+
+        switch (field){
+            case "id" : event.id = value;
+                break;
+            case "Date" : try{
+                                event.Date = formatter.parse(value);
+                            }catch (ParseException pe){
+                                pe.printStackTrace();
+                                Log.e(TAG, "Error in parsing");
+                                Log.e(TAG,pe.getMessage());
+                            }
+                            break;
+            case "Title" : event.Title = value;
+                break;
+            case "Desc" : event.Desc = value;
+                break;
+            case "image" : event.image= value;
+                break;
+            case "type" : event.type = value;
+                break;
+            case "college" : event.college = value;
+                break;
+            case "issueBy" : event.issueBy = value;
+                break;
+            case "containerName" : event.containerName = value;
+                break;
+            case "resourceName" : event.resourceName = value;
+                break;
+            case "sasQueryString" : event.sasQueryString = value;
+                break;
+            case "imageUri" : event.imageUri = value;
+                break;
+            case "__createdAt" : try{
+                event.__createdAt = formatter.parse(value);
+            }catch (ParseException pe){
+                pe.printStackTrace();
+                Log.e(TAG, "Error in parsing");
+                Log.e(TAG,pe.getMessage());
+            }
+                break;
+            case "__updatedAt" : try{
+                event.__updatedAt = formatter.parse(value);
+            }catch (ParseException pe){
+                pe.printStackTrace();
+                Log.e(TAG, "Error in parsing");
+                Log.e(TAG,pe.getMessage());
+            }
+                break;
+            case "__version" : event.__version = value;
+                break;
+        }
+
+        Log.v(TAG, "value added "+field+ " is " + value);
+
+        return event;
 
     }
 

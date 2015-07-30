@@ -34,6 +34,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_alignParentBottom="false"
                         android:layout_weight=".1"
+                        android:transitionName="eventImageTransition"
                         android:layout_gravity="center" />
 
 
@@ -41,6 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/eventImageProgressBar"
+                        android:transitionName="eventProgressTransition"
                         android:layout_gravity="center" />
 
                     <TextView
@@ -49,6 +51,7 @@
                         android:text="Event Title"
                         android:id="@+id/eventTitle"
                         android:layout_toRightOf="@id/eventImage"
+                        android:transitionName="eventTitleTransition"
                         android:layout_alignParentTop="true"
                         android:textSize="30sp"
                         android:layout_gravity="bottom" />
@@ -75,6 +78,7 @@
                             android:layout_height="wrap_content"
                             android:text="Event Venue"
                             android:id="@+id/eventVenue"
+                            android:transitionName="eventVenueTransition"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="top|left"
                             android:layout_marginBottom="20dp" />
@@ -84,6 +88,7 @@
                             android:layout_height="wrap_content"
                             android:text="Event ETA"
                             android:id="@+id/eventETA"
+                            android:transitionName="eventETATransition"
                             android:layout_toRightOf="@id/eventVenue"
                             android:layout_gravity="top|right"
                             android:layout_marginBottom="20dp" />
@@ -104,13 +109,11 @@
                         android:layout_height="wrap_content"
                         android:text="Event Full Desc"
                         android:id="@+id/eventDesc"
+                        android:transitionName="eventSmallDTransition"
                         android:layout_toRightOf="@id/eventImage"
                         android:layout_alignParentTop="true"
                         android:layout_below="@id/eventTitle"
-
-                        android:layout_marginTop="15dp"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp" />
+                        android:layout_marginTop="15dp" />
 
 
     </android.support.v7.widget.CardView>

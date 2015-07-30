@@ -9,11 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by akshi_000 on 27-07-2015.
@@ -25,13 +28,11 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
 
     private static final String TAG = "ClientDatabase";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_NAME = "MugdLoacal";
 
     private static final String[] TABLE_NAMES = {"Events"};
-
-    private SQLiteDatabase db;
 
 
     private HashMap<String,Class> getDataClass(String TABLE_NAME){
@@ -61,7 +62,7 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
 
         columnsSchema = new HashMap<>();
         fieldsMaped = getDataClass(TABLE_NAME);
-        createTableCommand.append("CREATE TABLE "+TABLE_NAME+"(");
+        createTableCommand.append("CREATE TABLE IF NOT EXISTS "+TABLE_NAME+"(");
 
         for(String field_name : fieldsMaped.keySet()){
             if(columnCount!=0){
@@ -75,6 +76,9 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
             if(fieldsMaped.get(field_name).getName().toString().contains("String")) {
                 columnsSchema.put(field_name,"TEXT");
                 createTableCommand.append(field_name+" TEXT");
+            }
+            if(field_name.equals("id")){
+                createTableCommand.append(" PRIMARY KEY");
             }
         }
         createTableCommand.append(")");
@@ -119,16 +123,72 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
 
         if(data instanceof Events) {
             value = Events.extract((Events) data, column);
+            Log.v(TAG,"value recieved is "+value);
         }
 
         if(Type.contains("String")){
 
         }else if(Type.contains("Date")){
-            value = (Date) value;
+            /*
+            try {
+                value = formatter.format(formatter.parse(value.toString()));
+                Log.v(TAG, "Formating Date");
+            }catch (ParseException pe){
+                Log.e(TAG,"Exception in formatting date");
+                Log.e(TAG,pe.getMessage());
+            }
+            */
         }
-        return value.toString();
+        if(value!=null)
+            return value.toString();
+        else
+            return null;
     }
 
+    private Events getEvent(Cursor cursor){
+        Events event;
+        Set<String> columns = Events.fieldsMaped.keySet();
+
+        event = new Events();
+
+        Iterator<String> allColumns  = columns.iterator();
+
+        for(int i=0;i<columns.size();i++){
+            event = Events.insert(cursor.getString(i),allColumns.next(),event);
+        }
+
+        return event;
+    }
+
+    public List<Events> initialiseEvents(){
+        List<Events> events;
+        Set<String> columns = Events.fieldsMaped.keySet();
+        Iterator<String> allColumns  = columns.iterator();
+
+        String selectQuery = "SELECT ";
+        while(allColumns.hasNext()){
+            selectQuery += allColumns.next()+", ";
+        }
+        selectQuery = selectQuery.substring(0,selectQuery.lastIndexOf(","));
+        selectQuery += " FROM " + "Events";
+
+        Log.v(TAG, "Select Query is " + selectQuery);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        events = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                Events event = getEvent(cursor);
+                events.add(event);
+            } while (cursor.moveToNext());
+        }
+
+
+        return events;
+    }
 
     public void insertCommand(String TABLE_NAME,Object data){
         SQLiteDatabase db = this.getWritableDatabase();

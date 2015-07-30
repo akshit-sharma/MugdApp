@@ -1,10 +1,13 @@
 package org.mugd.mugdapp;
 
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,20 +18,20 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.net.Inet4Address;
+
 import java.util.List;
 
 
 public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdapter.AllEventsViewHolder>{
 
     List<Events> events;
-
+    Activity callingActivity;
 
 
     @Override
     public AllEventsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_show_all_events_adapter, viewGroup, false);
-        AllEventsViewHolder aevh = new AllEventsViewHolder(v);
+        AllEventsViewHolder aevh = new AllEventsViewHolder(callingActivity,v);
         return aevh;
     }
 
@@ -47,14 +50,15 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
         return events.size();
     }
 
-    ShowAllEventsAdapter(List<Events> events){
+    ShowAllEventsAdapter(Activity callingActivity,List<Events> events){
+        this.callingActivity = callingActivity;
         this.events = events;
     }
 
     public static class AllEventsViewHolder extends RecyclerView.ViewHolder{
 
         private static String TAG = "AllEventsViewHolder";
-
+        Activity callingActivity;
         CardView cv;
         Events event;
         ImageView eventImage;
@@ -64,8 +68,9 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
         TextView eventVenue;
         TextView eventTime;
 
-        AllEventsViewHolder(View itemView){
+        AllEventsViewHolder(final Activity callingActivity,View itemView){
             super(itemView);
+            this.callingActivity = callingActivity;
             cv = (CardView) itemView.findViewById(R.id.cv);
             eventImage = (ImageView) itemView.findViewById(R.id.eventImage);
             eventImageProgressBar = (ProgressBar) itemView.findViewById(R.id.eventImageProgressBar);
@@ -79,15 +84,30 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
                 public void onClick(View v) {
                     Log.i(TAG, "CV Clicked !!");
 
-                    Intent intent = new Intent(cv.getContext().getApplicationContext(),EventDetails.class);
-//                    String transitionName = cv.getContext().getApplicationContext().getString(R.string.transition_album_cover);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    EventDetails.event = event;
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(
-//
-//                            )
-                    cv.getContext().getApplicationContext().startActivity(intent);
+                        Pair<View, String> pair = new Pair<View, String>(eventImage,"eventImageTransition");
+
+                    if(Build.VERSION.SDK_INT > 21) {
+
+                        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(callingActivity, v, "eventImageTransition");
+
+                        Intent intent = new Intent(callingActivity, EventDetails.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        EventDetails.event = event;
+                        callingActivity.startActivity(intent, optionsCompat.toBundle());
+                    }else{
+                        Intent intent = new Intent(callingActivity, EventDetails.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        EventDetails.event = event;
+                        callingActivity.startActivity(intent);
+                    }
+
+
+//                        Intent intent = new Intent(cv.getContext().getApplicationContext(),EventDetails.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        EventDetails.event = event;
+//                        cv.getContext().getApplicationContext().startActivity(intent);
+
+
                 }
             });
         }

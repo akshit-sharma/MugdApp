@@ -1,9 +1,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navmainDrawer"
     tools:context=".NavDrawerShow">
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/ic_one"
+            android:title="Events" />
+
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:icon="@drawable/ic_two"
+            android:title="Second" />
+
+        <item
+            android:id="@+id/nav_third_fragment"
+            android:icon="@drawable/ic_three"
+            android:title="Third" />
+
+        <item android:title="Sub items">
+            <menu>
+                <item
+                    android:icon="@drawable/ic_one"
+                    android:title="Sub item 1" />
+
+                <item
+                    android:icon="@drawable/ic_two"
+                    android:title="Sub item 2" />
+            </menu>
+        </item>
+    </group>
 </menu>

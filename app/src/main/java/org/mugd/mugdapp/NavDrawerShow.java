@@ -101,7 +101,7 @@ public class NavDrawerShow extends AppCompatActivity {
         Class fragmentClass;
 
         switch (menuItem.getItemId()){
-            case R.id.nav_first_fragment:
+            case R.id.nav_events:
                 Toast.makeText(getApplicationContext(),"first_one",Toast.LENGTH_SHORT).show();
                 break;
 

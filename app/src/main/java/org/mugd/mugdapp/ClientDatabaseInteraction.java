@@ -191,6 +191,17 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
     }
 
     public void insertCommand(String TABLE_NAME,Object data){
+
+        if(data instanceof Events){
+            Events temp = (Events) data;
+            for(Events event : initialiseEvents()){
+                if(event.id.equals(temp.id)){
+                    Log.v(TAG,event.id +" already exists ");
+                    return;
+                }
+            }
+        }
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

@@ -15,6 +15,8 @@ public class AzureMobileService extends Service {
     private AzureMobileServiceInteraction amsi;
     private Context context;
 
+    private boolean done;
+
     public AzureMobileService(){
         this.context = this;
     }
@@ -30,7 +32,7 @@ public class AzureMobileService extends Service {
             Toast.makeText(getApplicationContext(),"AMSI service started",Toast.LENGTH_SHORT).show();
         }
         Log.i(TAG,"AMSI service started");
-        amsi = new AzureMobileServiceInteraction(context);
+        done = false;
     }
 
     @Override
@@ -38,12 +40,17 @@ public class AzureMobileService extends Service {
         if(BuildConfig.DEBUG){
             Toast.makeText(getApplicationContext(),"AMSI service startCommand",Toast.LENGTH_SHORT).show();
         }
-        Log.i(TAG,"AMSI service startCommand");
-        amsi.execute();
-        if(BuildConfig.DEBUG){
-            Toast.makeText(getApplicationContext(),"AMSI synced",Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "AMSI service startCommand");
+        if(!done) {
+            done = true;
+            amsi = new AzureMobileServiceInteraction(context);
+            amsi.execute();
+            if (BuildConfig.DEBUG) {
+                Toast.makeText(getApplicationContext(), "AMSI synced", Toast.LENGTH_SHORT).show();
+            }
+            Log.i(TAG, "AMSI synced");
+            done = false;
         }
-        Log.i(TAG, "AMSI synced");
         return super.onStartCommand(intent, flags, startId);
     }
 

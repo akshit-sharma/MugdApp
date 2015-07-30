@@ -1,52 +1,59 @@
 package org.mugd.mugdapp;
 
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.widget.Toast;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+public class AzureMobileService extends Service {
 
-import java.util.List;
+    private static final String TAG = "AMS";
 
+    private AzureMobileServiceInteraction amsi;
+    private Context context;
 
-public class AzureMobileService extends AppCompatActivity {
+    public AzureMobileService(){
+        this.context = this;
+    }
 
-    AzureMobileServiceInteraction amsi;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_azure_mobile_service);
+    public AzureMobileService(Context context) {
+        this.context = context;
     }
 
     @Override
-    protected void onStart(){
-        super.onStart();
-        amsi = new AzureMobileServiceInteraction(this);
-        amsi.execute();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_azure_mobile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onCreate() {
+        super.onCreate();
+        if(BuildConfig.DEBUG){
+            Toast.makeText(getApplicationContext(),"AMSI service started",Toast.LENGTH_SHORT).show();
         }
-
-        return super.onOptionsItemSelected(item);
+        Log.i(TAG,"AMSI service started");
+        amsi = new AzureMobileServiceInteraction(context);
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if(BuildConfig.DEBUG){
+            Toast.makeText(getApplicationContext(),"AMSI service startCommand",Toast.LENGTH_SHORT).show();
+        }
+        Log.i(TAG,"AMSI service startCommand");
+        amsi.execute();
+        if(BuildConfig.DEBUG){
+            Toast.makeText(getApplicationContext(),"AMSI synced",Toast.LENGTH_SHORT).show();
+        }
+        Log.i(TAG, "AMSI synced");
+        return super.onStartCommand(intent, flags, startId);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

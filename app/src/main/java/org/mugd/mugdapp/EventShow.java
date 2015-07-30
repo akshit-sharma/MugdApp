@@ -40,13 +40,18 @@ public class EventShow extends FragmentActivity{
                 Log.e(TAG,"eventID is null !!");
             }
             if(event == null){
-                Log.e(TAG,"eventID is null !!");
+                Log.e(TAG,"event is null !!");
             }
+            /*
             if(!event.id.equals(eventID)){
                 Log.e(TAG,"Id of event and eventID is different !!");
                 Log.e(TAG,"EventID : "+eventID);
                 Log.e(TAG,"ID of event : "+event.id);
             }
+            */
+
+            eventID = event.id;
+
 
             Log.v(TAG, "everything OK in onCreate so far");
 

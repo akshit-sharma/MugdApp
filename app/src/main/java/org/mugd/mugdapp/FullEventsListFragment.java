@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionInflater;
@@ -12,16 +13,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 public class FullEventsListFragment extends Fragment {
 
-    private final static String TAG = "FELF";
+    private final static String TAG = "FullEventsListFragment";
 
-    private View myFragmentView;
+
     private Activity activity;
+
+    private LinearLayout ll;
+    private FragmentActivity fa;
 
     RecyclerView rv;
     static List<Events> eventsList;
@@ -44,13 +51,29 @@ public class FullEventsListFragment extends Fragment {
             getWindow().setSharedElementExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.shared_element_transition_events));
         }
         */
+        refreshEntries();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        myFragmentView = inflater.inflate(R.layout.fragment_full_events_list, container, false);
+        View myFragmentView = inflater.inflate(R.layout.fragment_full_events_list, container, false);
+
+        rv = (RecyclerView) myFragmentView.findViewById(R.id.rv2);
+
+        if(rv == null){
+            Log.e(TAG,"rv shouldnot be null");
+        }
+
+        rv.setHasFixedSize(true);
+
+        LinearLayoutManager llm = new LinearLayoutManager(activity.getApplicationContext());
+        rv.setLayoutManager(llm);
+
+        refreshList();
+
         return myFragmentView;
     }
 
@@ -59,27 +82,33 @@ public class FullEventsListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        rv = (RecyclerView) myFragmentView.findViewById(R.id.rv2);
-        rv.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(activity.getApplicationContext());
-        rv.setLayoutManager(llm);
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
 
-        refreshList();
+    private void refreshEntries(){
+        Log.i(TAG,"Entries refreshed");
+        /*
+        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(activity.getApplicationContext());
+        eventsList = cbi.initialiseEvents();
+        cbi.closeDB();
+        */
+        eventsList = new ArrayList<>();
+        Events events = new Events();
+        events.imageUri = "faaltu";
+        events.Title = "Title";
+        events.Desc = "ABc";
+        events.Date = new Date();
+        events.college = "Venue";
+        eventsList.add(events);
 
     }
 
     private void refreshList(){
-        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(activity.getApplicationContext());
-        eventsList = cbi.initialiseEvents();
-        cbi.closeDB();
-
+        Log.i(TAG,"List refreshed");
         ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(activity,eventsList);
         rv.setAdapter(adapter);
     }

@@ -24,35 +24,46 @@ import java.util.List;
 
 public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdapter.AllEventsViewHolder>{
 
+    private static final String TAG = "ShowAllEventsAdapter";
+
     List<Events> events;
     Activity callingActivity;
 
 
     @Override
     public AllEventsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        Log.i(TAG,"onCreateViewHolder called");
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_show_all_events_adapter, viewGroup, false);
         AllEventsViewHolder aevh = new AllEventsViewHolder(callingActivity,v);
+        Log.i(TAG,"onCreateViewHolder returned");
         return aevh;
     }
 
     @Override
     public void onBindViewHolder(AllEventsViewHolder holder, int i) {
+        Log.i(TAG,"onBindViewHolder called");
         new DownloadImageTask(holder.eventImage,holder.eventImageProgressBar).execute(events.get(i).imageUri);
         holder.eventTitle.setText(events.get(i).Title);
         holder.eventSmallDec.setText(Events.extract(events.get(i),"Desc",true));
         holder.eventVenue.setText(Events.extract(events.get(i),"college",true));
         holder.eventTime.setText(Events.extract(events.get(i),"Date",true));
         holder.event = events.get(i);
+        Log.i(TAG,"onBindViewHolder finished");
     }
 
     @Override
     public int getItemCount() {
+        Log.i(TAG,"getItemCount "+events.size()+" called");
+        if(events == null)
+            Log.e(TAG,"Why is events null !!");
         return events.size();
     }
 
     ShowAllEventsAdapter(Activity callingActivity,List<Events> events){
+        Log.i(TAG,"constructor called");
         this.callingActivity = callingActivity;
         this.events = events;
+        Log.i(TAG,"constructor finished");
     }
 
     public static class AllEventsViewHolder extends RecyclerView.ViewHolder{
@@ -70,6 +81,7 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
 
         AllEventsViewHolder(final Activity callingActivity,View itemView){
             super(itemView);
+            Log.i(TAG, " constructor called ");
             this.callingActivity = callingActivity;
             cv = (CardView) itemView.findViewById(R.id.cv);
             eventImage = (ImageView) itemView.findViewById(R.id.eventImage);
@@ -110,6 +122,7 @@ public class ShowAllEventsAdapter extends RecyclerView.Adapter<ShowAllEventsAdap
 
                 }
             });
+            Log.i(TAG, " constructor ended ");
         }
 
     }

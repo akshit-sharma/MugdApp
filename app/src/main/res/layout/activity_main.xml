@@ -19,7 +19,8 @@
 
         <!-- The main content view -->
 
-        <fragment android:name="org.mugd.mugdapp.FullEventsListFragment"
+        <fragment
+            android:name="org.mugd.mugdapp.FullEventsListFragment"
             android:id="@+id/mainFrag"
             android:layout_weight="1"
             android:layout_width="0dp"

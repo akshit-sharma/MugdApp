@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -52,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
 
         Intent ams = new Intent(this,AzureMobileService.class);
         startService(ams);
+
+/*
+        try{
+            Fragment fragment;
+            fragment = FullEventsListFragment.class.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        */
 
     }
 
@@ -120,19 +134,28 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()){
             case R.id.nav_events:
                 Toast.makeText(getApplicationContext(), "first_one", Toast.LENGTH_SHORT).show();
-                fragmentClass = FullEventsListFragment.class;
+                //fragmentClass = FullEventsListFragment.class;
+                fragment = new FullEventsListFragment();
                 break;
 
             case R.id.nav_second_fragment:
                 Toast.makeText(getApplicationContext(),"second_one",Toast.LENGTH_SHORT).show();
-                break;
+                Intent intent = new Intent(this,FullEventsList.class);
+                startActivity(intent);
+                return;
 
             case R.id.nav_third_fragment:
                 Toast.makeText(getApplicationContext(),"third_one",Toast.LENGTH_SHORT).show();
+                //fragmentClass = FullEventsListFragAct.class;
+                //fragment = new FullEventsListFragAct();
                 break;
 
             default:
                 Toast.makeText(getApplicationContext(),"default_one",Toast.LENGTH_SHORT).show();
+        }
+
+        if(fragmentClass == null){
+            Log.e(TAG,"FragmentClass should not be null");
         }
 
         try{
@@ -141,8 +164,17 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
 
+        if(fragment == null){
+            Log.e(TAG,"Fragment should not be null");
+        }
+
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if(fragmentManager == null){
+            Log.e(TAG,"FragmentManager should not be null");
+        }
+
         fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
 
         menuItem.setChecked(true);

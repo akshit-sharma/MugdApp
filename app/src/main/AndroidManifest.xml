@@ -39,6 +39,10 @@
             android:name=".EventShow"
             android:label="@string/title_activity_event_show" >
         </activity>
+        <activity
+            android:name=".ChatBubbleActivity"
+            android:label="@string/title_activity_chat_bubble" >
+        </activity>
     </application>
 
 </manifest>

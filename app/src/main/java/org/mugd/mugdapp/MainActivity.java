@@ -8,14 +8,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
 
+   private Button chat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        chat = (Button)findViewById(R.id.button4);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showChat(view);
+
+            }
+        });
     }
 
     @Override
@@ -54,5 +64,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,AzureMobileService.class);
         startActivity(intent);
     }
+    public void showChat(View view){
+        Intent intent = new Intent(this,ChatBubbleActivity.class);
+        startActivity(intent);
+    }
+
 
 }

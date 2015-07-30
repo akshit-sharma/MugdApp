@@ -1,5 +1,6 @@
 package org.mugd.mugdapp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -107,6 +108,7 @@ public class NavDrawerShow extends AppCompatActivity {
 
             case R.id.nav_second_fragment:
                 Toast.makeText(getApplicationContext(),"second_one",Toast.LENGTH_SHORT).show();
+
                 break;
 
             case R.id.nav_third_fragment:

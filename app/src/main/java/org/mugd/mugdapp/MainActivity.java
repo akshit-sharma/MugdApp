@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -28,10 +29,19 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
 
+   private Button chat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        chat = (Button)findViewById(R.id.button4);
+        chat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showChat(view);
+                }
+            });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,17 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent ams = new Intent(this,AzureMobileService.class);
         startService(ams);
-
-/*
-        try{
-            Fragment fragment;
-            fragment = FullEventsListFragment.class.newInstance();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        */
 
     }
 
@@ -100,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intentAllEvents = new Intent(this,FullEventsList.class);
         startActivity(intentAllEvents);
     }
+    public void showChat(View view){
+        Intent intent = new Intent(this,ChatBubbleActivity.class);
+        startActivity(intent);
+    }
+
 
 
     /*

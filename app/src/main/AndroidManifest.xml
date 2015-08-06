@@ -48,6 +48,10 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+        <activity
+            android:name=".ChatBubbleActivity"
+            android:label="@string/title_activity_chat_bubble" >
+        </activity>
     </application>
 
 </manifest>

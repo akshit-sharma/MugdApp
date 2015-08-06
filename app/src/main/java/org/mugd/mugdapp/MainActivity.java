@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean toastError = true;
 
+    /*
+     *  for Nav Drawer
+     *
+     */
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_nav_drawer_show, menu);
         return true;
     }
 
@@ -84,22 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void showNavDrawer(View view){
-        Intent intent = new Intent(this,NavDrawerShow.class);
-        startActivity(intent);
-    }
-
-    public void azureMobileService(View view){
-        Intent intentAllEvents = new Intent(this,FullEventsList.class);
-        startActivity(intentAllEvents);
-    }
-    public void showChat(){
-        Intent intent = new Intent(this,ChatBubbleActivity.class);
-        startActivity(intent);
-    }
-
-
 
     /*
      *   for NavDrawers
@@ -125,61 +113,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem){
-        Fragment fragment = null;
-
-        Class fragmentClass;
-        fragmentClass = null;
 
         switch (menuItem.getItemId()){
             case R.id.nav_events:
                 if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(), "Event Fragment", Toast.LENGTH_SHORT).show();
-                //fragmentClass = FullEventsListFragment.class;
-                fragment = new FullEventsListFragment();
+                    Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
+                Intent eventIntent = new Intent(this,FullEventsList.class);
+                startActivity(eventIntent);
                 break;
 
             case R.id.nav_second_fragment:
                 if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this,FullEventsList.class);
-                startActivity(intent);
-                return;
-
-            case R.id.nav_third_fragment:
-                if(BuildConfig.DEBUG)
                     Toast.makeText(getApplicationContext(),"Chat activity",Toast.LENGTH_SHORT).show();
-                showChat();
+                Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
+                startActivity(chatIntent);
                 break;
 
             default:
                 Toast.makeText(getApplicationContext(),"default_one",Toast.LENGTH_SHORT).show();
-        }
-
-        if(fragmentClass == null){
-            Log.e(TAG,"FragmentClass should not be null");
-        }else {
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
-            if (fragment == null) {
-                if(BuildConfig.DEBUG && toastError)
-                    Toast.makeText(getApplicationContext(),"Fragment should not be null",Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "Fragment should not be null");
-            } else {
-
-                // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getSupportFragmentManager();
-
-                if (fragmentManager == null) {
-                    Log.e(TAG, "FragmentManager should not be null");
-                }
-
-                fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
-            }
         }
 
         menuItem.setChecked(true);

@@ -93,13 +93,6 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
     protected void onPostExecute(List<Events> result){
         super.onPostExecute(result);
 
-        Log.v("AMSI","openning next activity");
-        /*
-        Intent intentAllEvents = new Intent(context,FullEventsList.class);
-        //FullEventsList.eventsList = result;
-        context.startActivity(intentAllEvents);
-        */
-
     }
 
 }

@@ -1,18 +1,25 @@
 package org.mugd.mugdapp;
 
+import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -22,6 +29,14 @@ public class FullEventsList extends AppCompatActivity {
     RecyclerView rv;
     static List<Events> eventsList;
 
+    /*
+     *  for Nav Drawer
+     *
+     */
+    private DrawerLayout mDrawer;
+    private Toolbar toolbar;
+    private NavigationView nvDrawer;
+    private ActionBarDrawerToggle drawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +62,24 @@ public class FullEventsList extends AppCompatActivity {
             }
         });
 */
+     /*
+     *  for Nav Drawer
+     *
+     */
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mDrawer = (DrawerLayout) findViewById(R.id.navmainDrawer);
+        drawerToggle = setupDrawerToggle();
+        mDrawer.setDrawerListener(drawerToggle);
+
+        final ActionBar ab = getSupportActionBar();
+        if(ab!=null)
+            ab.setDisplayHomeAsUpEnabled(true);
+
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        setupDrawerContent(nvDrawer);
+
     }
 
     private void refreshList(){
@@ -86,5 +119,55 @@ public class FullEventsList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+     *   for NavDrawers
+     *
+     */
+
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+    }
+
+
+    private void setupDrawerContent(NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                }
+        );
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+
+        switch (menuItem.getItemId()) {
+            case R.id.nav_events:
+                if (BuildConfig.DEBUG)
+                    Toast.makeText(getApplicationContext(), "Event Activity", Toast.LENGTH_SHORT).show();
+                Intent eventIntent = new Intent(this, FullEventsList.class);
+                startActivity(eventIntent);
+                break;
+
+            case R.id.nav_second_fragment:
+                if (BuildConfig.DEBUG)
+                    Toast.makeText(getApplicationContext(), "Chat activity", Toast.LENGTH_SHORT).show();
+                Intent chatIntent = new Intent(this, ChatBubbleActivity.class);
+                startActivity(chatIntent);
+                return;
+
+            default:
+                Toast.makeText(getApplicationContext(), "default_one", Toast.LENGTH_SHORT).show();
+        }
+
+        menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+        mDrawer.closeDrawers();
+
     }
 }

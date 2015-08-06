@@ -27,16 +27,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NavDrawerShow"
-            android:label="@string/title_activity_nav_drawer_show" >
-        </activity>
-        <activity
             android:name=".FullEventsList"
             android:label="@string/title_activity_full_events_list" >
-        </activity>
-        <activity
-            android:name=".ShowAllEventsAdapter"
-            android:label="@string/title_activity_show_all_events_adapter" >
         </activity>
         <activity
             android:name=".EventDetails"

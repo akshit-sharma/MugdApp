@@ -12,6 +12,8 @@ public class AzureMobileService extends Service {
 
     private static final String TAG = "AMS";
 
+    private boolean toastDebug = false;
+
     private AzureMobileServiceInteraction amsi;
     private Context context;
 
@@ -28,7 +30,7 @@ public class AzureMobileService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(BuildConfig.DEBUG){
+        if(BuildConfig.DEBUG && toastDebug){
             Toast.makeText(getApplicationContext(),"AMSI service started",Toast.LENGTH_SHORT).show();
         }
         Log.i(TAG,"AMSI service started");
@@ -37,7 +39,7 @@ public class AzureMobileService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(BuildConfig.DEBUG){
+        if(BuildConfig.DEBUG && toastDebug){
             Toast.makeText(getApplicationContext(),"AMSI service startCommand",Toast.LENGTH_SHORT).show();
         }
         Log.i(TAG, "AMSI service startCommand");
@@ -45,7 +47,7 @@ public class AzureMobileService extends Service {
             done = true;
             amsi = new AzureMobileServiceInteraction(context);
             amsi.execute();
-            if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG && toastDebug) {
                 Toast.makeText(getApplicationContext(), "AMSI synced", Toast.LENGTH_SHORT).show();
             }
             Log.i(TAG, "AMSI synced");

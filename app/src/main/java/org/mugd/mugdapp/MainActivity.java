@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+    public boolean toastError = true;
+
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -34,14 +36,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        chat = (Button)findViewById(R.id.button4);
-        chat.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showChat(view);
-                }
-            });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intentAllEvents = new Intent(this,FullEventsList.class);
         startActivity(intentAllEvents);
     }
-    public void showChat(View view){
+    public void showChat(){
         Intent intent = new Intent(this,ChatBubbleActivity.class);
         startActivity(intent);
     }
@@ -137,21 +131,23 @@ public class MainActivity extends AppCompatActivity {
 
         switch (menuItem.getItemId()){
             case R.id.nav_events:
-                Toast.makeText(getApplicationContext(), "first_one", Toast.LENGTH_SHORT).show();
+                if(BuildConfig.DEBUG)
+                    Toast.makeText(getApplicationContext(), "Event Fragment", Toast.LENGTH_SHORT).show();
                 //fragmentClass = FullEventsListFragment.class;
                 fragment = new FullEventsListFragment();
                 break;
 
             case R.id.nav_second_fragment:
-                Toast.makeText(getApplicationContext(),"second_one",Toast.LENGTH_SHORT).show();
+                if(BuildConfig.DEBUG)
+                    Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this,FullEventsList.class);
                 startActivity(intent);
                 return;
 
             case R.id.nav_third_fragment:
-                Toast.makeText(getApplicationContext(),"third_one",Toast.LENGTH_SHORT).show();
-                //fragmentClass = FullEventsListFragAct.class;
-                //fragment = new FullEventsListFragAct();
+                if(BuildConfig.DEBUG)
+                    Toast.makeText(getApplicationContext(),"Chat activity",Toast.LENGTH_SHORT).show();
+                showChat();
                 break;
 
             default:
@@ -160,26 +156,30 @@ public class MainActivity extends AppCompatActivity {
 
         if(fragmentClass == null){
             Log.e(TAG,"FragmentClass should not be null");
+        }else {
+
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            if (fragment == null) {
+                if(BuildConfig.DEBUG && toastError)
+                    Toast.makeText(getApplicationContext(),"Fragment should not be null",Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Fragment should not be null");
+            } else {
+
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                if (fragmentManager == null) {
+                    Log.e(TAG, "FragmentManager should not be null");
+                }
+
+                fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
+            }
         }
-
-        try{
-            fragment = (Fragment) fragmentClass.newInstance();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
-        if(fragment == null){
-            Log.e(TAG,"Fragment should not be null");
-        }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        if(fragmentManager == null){
-            Log.e(TAG,"FragmentManager should not be null");
-        }
-
-        fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
 
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());

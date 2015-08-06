@@ -9,16 +9,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="show List View"
-        android:id="@+id/button"
-        android:layout_marginTop="45dp"
-        android:onClick="showListView"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -43,7 +33,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Azure Mobile Service"
+        android:text="Events List"
         android:id="@+id/button3"
         android:onClick="azureMobileService"
         android:layout_below="@+id/button4"

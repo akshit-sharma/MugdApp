@@ -11,11 +11,11 @@ public class ChatPublic {
     public String Name;
     public String Message;
     public String Id;
-    private String CreatedAt() {
+    public Date __createdAt;
+    public String CreatedAt() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Date datetime = new Date();
-        return dateFormat.format(datetime);
+        return dateFormat.format(__createdAt);
     }
 
 

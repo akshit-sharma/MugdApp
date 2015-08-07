@@ -9,5 +9,16 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_activity_azure_mobile_service">AzureMobileService</string>
+    <string name="title_activity_android_database_manager">AndroidDatabaseManager</string>
+    <string name="title_activity_event_show">EventShow</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_full_events_list">FullEventsList</string>
+    <string name="title_activity_show_all_events_adapter">ShowAllEventsAdapter</string>
+    <string name="title_activity_event_details">EventDetails</string>
+    <string name="transition_album_cover">I do not know what to write here</string>
+    <string name="title_activity_chat_bubble">ChatBubbleActivity</string>
 
 </resources>

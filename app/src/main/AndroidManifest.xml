@@ -2,6 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.mugd.mugdapp" >
 
+    <permission android:name="orgs.mugd.MugdApp.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="orgs.mugd.MugdApp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,12 +27,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CustomListViewShow"
-            android:label="@string/title_activity_custom_list_view_show" >
+            android:name=".FullEventsList"
+            android:label="@string/title_activity_full_events_list" >
         </activity>
         <activity
-            android:name=".NavDrawerShow"
-            android:label="@string/title_activity_nav_drawer_show" >
+            android:name=".EventDetails"
+            android:label="@string/title_activity_event_details" >
+        </activity>
+
+        <service
+            android:name=".AzureMobileService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <activity
+            android:name=".ChatBubbleActivity"
+            android:label="@string/title_activity_chat_bubble" >
         </activity>
     </application>
 

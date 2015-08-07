@@ -1,30 +1,33 @@
 package org.mugd.mugdapp;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.os.Bundle;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+public class FullEventsList extends AppCompatActivity {
 
-    public boolean toastError = true;
+    RecyclerView rv;
+    static List<Events> eventsList;
 
     /*
      *  for Nav Drawer
@@ -34,13 +37,35 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
-
-   private Button chat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        if(Build.VERSION.SDK_INT >= 21) {
+            getWindow().setSharedElementExitTransition(TransitionInflater.from(this).inflateTransition(R.transition.shared_element_transition_events));
+        }
+
+        setContentView(R.layout.activity_full_events_list);
+
+        rv = (RecyclerView) findViewById(R.id.rv);
+        rv.setHasFixedSize(true);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        rv.setLayoutManager(llm);
+
+/*
+        rv.setOnClickListener(new RecyclerView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v.getRootView(), "Work Na " + v.toString(), Snackbar.LENGTH_SHORT).show();
+
+            }
+        });
+*/
+     /*
+     *  for Nav Drawer
+     *
+     */
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,19 +82,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void refreshList(){
+        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(this);
+        eventsList = cbi.initialiseEvents();
+        cbi.closeDB();
 
-        Intent ams = new Intent(this,AzureMobileService.class);
-        startService(ams);
+        ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(this,eventsList);
+        rv.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        this.refreshList();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_nav_drawer_show, menu);
+        getMenuInflater().inflate(R.menu.menu_full_events_list, menu);
         return true;
     }
 
@@ -84,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -112,25 +144,25 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void selectDrawerItem(MenuItem menuItem){
+    public void selectDrawerItem(MenuItem menuItem) {
 
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.nav_events:
-                if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
-                Intent eventIntent = new Intent(this,FullEventsList.class);
+                if (BuildConfig.DEBUG)
+                    Toast.makeText(getApplicationContext(), "Event Activity", Toast.LENGTH_SHORT).show();
+                Intent eventIntent = new Intent(this, FullEventsList.class);
                 startActivity(eventIntent);
                 break;
 
             case R.id.nav_second_fragment:
-                if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(),"Chat activity",Toast.LENGTH_SHORT).show();
-                Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
+                if (BuildConfig.DEBUG)
+                    Toast.makeText(getApplicationContext(), "Chat activity", Toast.LENGTH_SHORT).show();
+                Intent chatIntent = new Intent(this, ChatBubbleActivity.class);
                 startActivity(chatIntent);
-                break;
+                return;
 
             default:
-                Toast.makeText(getApplicationContext(),"default_one",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "default_one", Toast.LENGTH_SHORT).show();
         }
 
         menuItem.setChecked(true);
@@ -138,6 +170,4 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
 
     }
-
-
 }

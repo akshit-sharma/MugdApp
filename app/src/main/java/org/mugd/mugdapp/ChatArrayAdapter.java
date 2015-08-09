@@ -20,7 +20,7 @@ import java.util.List;
 public class ChatArrayAdapter extends ArrayAdapter {
 
     private TextView chatText;
-    private List chatMessageList = new ArrayList();
+    private static List chatMessageList = new ArrayList();
     private LinearLayout singleMessageContainer;
 
     public void add(ChatMessage object) {

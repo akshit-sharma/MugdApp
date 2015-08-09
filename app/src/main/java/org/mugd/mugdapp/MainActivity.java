@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
+        new AzureChatService(this).execute();
+
     }
 
     @Override

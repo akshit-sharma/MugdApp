@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class AzureChatService extends AsyncTask<Void, Void, List<ChatPublic>>{
 
+    private final static String TAG = "AzureChatService";
 
     private Context context;
 
@@ -36,6 +37,8 @@ public class AzureChatService extends AsyncTask<Void, Void, List<ChatPublic>>{
 
         chatList = new ArrayList<ChatPublic>();
 
+        Log.v(TAG,"connecting to AzureChatService");
+
         try {
             mClient = new MobileServiceClient(
                     "https://mugd-app.azure-mobile.net/",
@@ -53,21 +56,22 @@ public class AzureChatService extends AsyncTask<Void, Void, List<ChatPublic>>{
 
     @Override
     protected List<ChatPublic> doInBackground(Void... voids) {
+        Log.v(TAG,"Getting Messages");
         try{
             final MobileServiceList<ChatPublic> result = mChatTable
                     .orderBy("__createdAt", QueryOrder.Descending)
                     .execute().    get();
-            Log.v("AMSI", "Running background task");
+            Log.v(TAG, "Running background task");
             chatList.clear();
             for(ChatPublic item : result){
                 chatList.add(item);
-                Log.v("AMSI_date", " " + item.CreatedAt());
+                Log.v(TAG,"" + item.CreatedAt());
             }
 
         }catch (Exception exception){
-            Log.e("AMSI", "Exception starting");
-            Log.e("AMSI", exception.getMessage());
-            Log.e("AMSI", "Exception ending");
+            Log.e(TAG, "Exception starting");
+            Log.e(TAG, exception.getMessage());
+            Log.e(TAG, "Exception ending");
         }
 
         return chatList;
@@ -77,10 +81,12 @@ public class AzureChatService extends AsyncTask<Void, Void, List<ChatPublic>>{
     @Override
     protected void onPostExecute(List<ChatPublic> result){
         super.onPostExecute(result);
+        Log.v(TAG, "Setting messages");
         ChatArrayAdapter chatArrayAdapter;
         chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
         for(ChatPublic item : result) {
-            chatArrayAdapter.add(item);
+            Log.v(TAG, "Adding message");
+            ChatArrayAdapter.addMessage(item);
         }
     }
 }

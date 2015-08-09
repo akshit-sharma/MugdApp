@@ -124,7 +124,7 @@ public class ChatBubbleActivity extends AppCompatActivity {
     }
 
     private boolean sendChatMessage(){
-        chatArrayAdapter.add(new ChatMessage(side, chatText.getText().toString()));
+        chatArrayAdapter.add(new ChatPublic(chatText.getText().toString(),getApplicationContext()));
         chatText.setText("");
         //side = !side;
         return true;

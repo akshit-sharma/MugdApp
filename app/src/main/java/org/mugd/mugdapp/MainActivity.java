@@ -1,25 +1,17 @@
 package org.mugd.mugdapp;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import static java.lang.System.exit;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -57,24 +49,17 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
-        new AzureChatService(this).execute();
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        exit(0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        Intent acs = new Intent(this,AzureChatService.class);
+        startService(acs);
+
         Intent ams = new Intent(this,AzureMobileService.class);
         startService(ams);
-        Intent acs = new Intent(this,AzureChatService.class);
-        startActivity(acs);
 
     }
 

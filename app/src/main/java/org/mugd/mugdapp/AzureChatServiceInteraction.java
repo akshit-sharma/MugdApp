@@ -3,6 +3,7 @@ package org.mugd.mugdapp;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
@@ -58,14 +59,15 @@ public class AzureChatServiceInteraction extends AsyncTask<Void, Void, List<Chat
     protected List<ChatPublic> doInBackground(Void... voids) {
         Log.v(TAG,"Getting Messages");
         try{
+
             final MobileServiceList<ChatPublic> result = mChatTable
                     .orderBy("__createdAt", QueryOrder.Ascending)
-                    .execute().    get();
+                    .execute().get();
             Log.v(TAG, "Running background task");
             chatList.clear();
-            for(ChatPublic item : result){
+            for (ChatPublic item : result) {
                 chatList.add(item);
-                Log.v(TAG,"" + item.CreatedAt());
+                Log.v(TAG, "" + item.CreatedAt());
             }
 
         }catch (Exception exception){

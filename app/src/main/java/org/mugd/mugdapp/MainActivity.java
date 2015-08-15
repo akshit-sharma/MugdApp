@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_events:
                 if(BuildConfig.DEBUG)
                     Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
-                Intent eventIntent = new Intent(this,FullEventsList.class);
-                startActivity(eventIntent);
+                //Intent eventIntent = new Intent(this,FullEventsList.class);
+                //startActivity(eventIntent);
                 break;
 
             case R.id.nav_second_fragment:

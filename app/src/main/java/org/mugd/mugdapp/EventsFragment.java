@@ -1,6 +1,7 @@
 package org.mugd.mugdapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,6 +18,8 @@ public class EventsFragment extends Fragment {
     RecyclerView rv;
     static List<Events> eventsList;
 
+    static Activity activity;
+
     public EventsFragment() {
         // Required empty public constructor
     }
@@ -30,12 +33,19 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_events, container, false);
+
+        rv = (RecyclerView) view.findViewById(R.id.EventRV);
+        rv.setHasFixedSize(true);
+
+        return view;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        this.refreshList();
 
     }
 
@@ -45,11 +55,11 @@ public class EventsFragment extends Fragment {
     }
 
     private void refreshList(){
-        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(this);
+        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(activity);
         eventsList = cbi.initialiseEvents();
         cbi.closeDB();
 
-        ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(this,eventsList);
+        ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(activity,eventsList);
         rv.setAdapter(adapter);
     }
 

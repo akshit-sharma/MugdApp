@@ -49,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
-        new AzureChatServiceInteraction(this).execute();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        Intent acs = new Intent(this,AzureChatService.class);
+        startService(acs);
 
         Intent ams = new Intent(this,AzureMobileService.class);
         startService(ams);

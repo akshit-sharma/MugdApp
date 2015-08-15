@@ -42,6 +42,11 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+        <service
+            android:name=".AzureChatService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
         <activity
             android:name=".ChatBubbleActivity"
             android:label="@string/title_activity_chat_bubble" >

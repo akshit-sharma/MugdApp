@@ -3,6 +3,7 @@ package org.mugd.mugdapp;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.telephony.TelephonyManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,11 +23,13 @@ public class ChatPublic {
         return dateFormat.format(__createdAt);
     }
     public ChatPublic(String Message , Context context){
-        WifiManager manager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
-        WifiInfo info = manager.getConnectionInfo();
-        String address = info.getMacAddress();
-        this.Name = address;
-        this.Message = Message;
+//        WifiManager manager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+//        WifiInfo info = manager.getConnectionInfo();
+//        String address = info.getMacAddress();
+//        this.Name = address;
+          TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+          this.Name = telephonyManager.getDeviceId();
+          this.Message = Message;
 
     }
 

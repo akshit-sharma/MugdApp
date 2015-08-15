@@ -59,7 +59,7 @@ public class AzureChatService extends AsyncTask<Void, Void, List<ChatPublic>>{
         Log.v(TAG,"Getting Messages");
         try{
             final MobileServiceList<ChatPublic> result = mChatTable
-                    .orderBy("__createdAt", QueryOrder.Descending)
+                    .orderBy("__createdAt", QueryOrder.Ascending)
                     .execute().    get();
             Log.v(TAG, "Running background task");
             chatList.clear();

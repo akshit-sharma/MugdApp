@@ -1,92 +1,68 @@
 package org.mugd.mugdapp;
 
+import android.app.Service;
 import android.content.Context;
-import android.os.AsyncTask;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
-import com.microsoft.windowsazure.mobileservices.MobileServiceList;
-import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
-import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
+public class AzureChatService extends Service {
 
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
+    private static final String TAG = "AMS";
 
-/**
- * Created by Adish Jain on 07-08-2015.
- */
-public class AzureChatService extends AsyncTask<Void, Void, List<ChatPublic>>{
+    private boolean toastDebug = false;
 
-    private final static String TAG = "AzureChatService";
-
+    private AzureChatServiceInteraction acsi;
     private Context context;
 
-    private MobileServiceClient mClient;
+    private boolean done;
 
-    private MobileServiceTable<ChatPublic> mChatTable;
+    public AzureChatService(){
+        this.context = this;
+    }
 
-    public List<ChatPublic> chatList;
-
-    public AzureChatService(Context context){
+    public AzureChatService(Context context) {
         this.context = context;
     }
 
-    protected void onPreExecute(){
-        super.onPreExecute();
-
-        chatList = new ArrayList<ChatPublic>();
-
-        Log.v(TAG,"connecting to AzureChatService");
-
-        try {
-            mClient = new MobileServiceClient(
-                    "https://mugd-app.azure-mobile.net/",
-                    "EEkrmAJgegNSaCsgIaRQDTAmbAqZRZ90",
-                    context
-            );
-
-            mChatTable = mClient.getTable(ChatPublic.class);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if(BuildConfig.DEBUG && toastDebug){
+            Toast.makeText(getApplicationContext(),"AMSI service started",Toast.LENGTH_SHORT).show();
         }
-
+        Log.i(TAG,"AMSI service started");
+        done = false;
     }
 
     @Override
-    protected List<ChatPublic> doInBackground(Void... voids) {
-        Log.v(TAG,"Getting Messages");
-        try{
-            final MobileServiceList<ChatPublic> result = mChatTable
-                    .orderBy("__createdAt", QueryOrder.Ascending)
-                    .execute().    get();
-            Log.v(TAG, "Running background task");
-            chatList.clear();
-            for(ChatPublic item : result){
-                chatList.add(item);
-                Log.v(TAG,"" + item.CreatedAt());
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if(BuildConfig.DEBUG && toastDebug){
+            Toast.makeText(getApplicationContext(),"ACSI service startCommand",Toast.LENGTH_SHORT).show();
+        }
+        Log.i(TAG, "ACSI service startCommand");
+        if(!done) {
+            done = true;
+            acsi = new AzureChatServiceInteraction(context);
+            acsi.execute();
+            if (BuildConfig.DEBUG && toastDebug) {
+                Toast.makeText(getApplicationContext(), "ACSI synced", Toast.LENGTH_SHORT).show();
             }
-
-        }catch (Exception exception){
-            Log.e(TAG, "Exception starting");
-            Log.e(TAG, exception.getMessage());
-            Log.e(TAG, "Exception ending");
+            Log.i(TAG, "ACSI synced");
+            done = false;
         }
-
-        return chatList;
+        return super.onStartCommand(intent, flags, startId);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
-    protected void onPostExecute(List<ChatPublic> result){
-        super.onPostExecute(result);
-        Log.v(TAG, "Setting messages");
-        ChatArrayAdapter chatArrayAdapter;
-        chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
-        for(ChatPublic item : result) {
-            Log.v(TAG, "Adding message");
-            ChatArrayAdapter.addMessage(item);
-        }
+    public IBinder onBind(Intent intent) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

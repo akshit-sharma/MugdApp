@@ -88,6 +88,7 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
         super.onPostExecute(result);
         if(result.size()!=0) {
             Log.v(TAG, "Setting messages");
+            ChatArrayAdapter.clearMessage();
             ChatArrayAdapter chatArrayAdapter;
             chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
             for (ChatPublic item : result) {

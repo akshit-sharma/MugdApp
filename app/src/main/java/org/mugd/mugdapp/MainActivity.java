@@ -50,28 +50,30 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
-        new AzureMobileServiceInteraction(this).execute();
-        new AzureChatServiceInteraction(this).execute();
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        Log.i(TAG,"Starting Service");
+        Log.i(TAG, "Starting Service");
 
-//        Intent ams = new Intent(this,AzureMobileService.class);
-//        startService(ams);
-//
-//        Intent acs = new Intent(this,AzureChatService.class);
-//        startService(acs);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+
+        new AzureMobileServiceInteraction(this).execute();
+        new AzureChatServiceInteraction(this).execute();
+
+
+//        Intent ams = new Intent(this,AzureMobileService.class);
+//        startService(ams);
+//
+//        Intent acs = new Intent(this,AzureChatService.class);
+//        startService(acs);
     }
 
     @Override

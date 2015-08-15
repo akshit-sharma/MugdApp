@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -49,17 +50,27 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
+        new AzureMobileServiceInteraction(this).execute();
+        new AzureChatServiceInteraction(this).execute();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.i(TAG,"Starting Service");
+
+//        Intent ams = new Intent(this,AzureMobileService.class);
+//        startService(ams);
+//
+//        Intent acs = new Intent(this,AzureChatService.class);
+//        startService(acs);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        Intent acs = new Intent(this,AzureChatService.class);
-        startService(acs);
-
-        Intent ams = new Intent(this,AzureMobileService.class);
-        startService(ams);
 
     }
 

@@ -66,18 +66,18 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                 eventsList.clear();
                 for(Events item : result){
                     eventsList.add(item);
-                    Log.v("AMSI_date", " " + item.Date);
+                 //   Log.v("AMSI_date", " " + item.Date);
                 }
                 ClientDatabaseInteraction cbi;
                 cbi = new ClientDatabaseInteraction(context);
-                Log.v("AMSI", "Values are");
+               // Log.v("AMSI", "Values are");
                 for(Events item : eventsList){
                     cbi.onCreate(cbi.getWritableDatabase());
                     cbi.insertCommand("Events", item);
-                    Log.v("AMSI"," "+item);
-                    Log.v("AMSI_id", " " + item.id);
-                    Log.v("AMSI_date", " " + item.Date);
-                    Log.v("AMSI_imageUri", " " + item.imageUri);
+                  //  Log.v("AMSI"," "+item);
+                  //  Log.v("AMSI_id", " " + item.id);
+                  //  Log.v("AMSI_date", " " + item.Date);
+                  //  Log.v("AMSI_imageUri", " " + item.imageUri);
                 }
                 Log.v("AMSI", "Finished background task");
                 cbi.closeDB();

@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class AzureChatService extends Service {
 
-    private static final String TAG = "AMS";
+    private static final String TAG = "ACS";
 
     private boolean toastDebug = false;
 
@@ -31,9 +31,9 @@ public class AzureChatService extends Service {
     public void onCreate() {
         super.onCreate();
         if(BuildConfig.DEBUG && toastDebug){
-            Toast.makeText(getApplicationContext(),"AMSI service started",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"ACSI service started",Toast.LENGTH_SHORT).show();
         }
-        Log.i(TAG,"AMSI service started");
+        Log.i(TAG,"ACSI service started");
         done = false;
     }
 

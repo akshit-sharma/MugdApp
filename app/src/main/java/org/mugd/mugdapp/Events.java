@@ -172,7 +172,7 @@ public class Events {
             formatter = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
         }
 
-        Log.v(TAG, "value addeding "+field+ " is " + value);
+//        Log.v(TAG, "value addeding "+field+ " is " + value);
 
         switch (field){
             case "id" : event.id = value;
@@ -225,7 +225,7 @@ public class Events {
                 break;
         }
 
-        Log.v(TAG, "value added "+field+ " is " + value);
+//        Log.v(TAG, "value added "+field+ " is " + value);
 
         return event;
 

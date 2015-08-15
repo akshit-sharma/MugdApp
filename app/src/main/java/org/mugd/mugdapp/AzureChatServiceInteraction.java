@@ -57,16 +57,21 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
     @Override
     protected List<ChatPublic> doInBackground(ChatPublic... chatpublics) {
         Log.v(TAG,"Getting Messages");
-        if(chatpublics[0]==null) {
+        chatList = null;
             try {
-                final MobileServiceList<ChatPublic> result = mChatTable
-                        .orderBy("__createdAt", QueryOrder.Ascending)
-                        .execute().get();
-                Log.v(TAG, "Running background task");
-                chatList.clear();
-                for (ChatPublic item : result) {
-                    chatList.add(item);
-                    Log.v(TAG, "" + item.CreatedAt());
+                if(chatpublics==null) {
+                    final MobileServiceList<ChatPublic> result = mChatTable
+                            .orderBy("__createdAt", QueryOrder.Ascending)
+                            .execute().get();
+                    Log.v(TAG, "Running background task");
+                    chatList.clear();
+                    for (ChatPublic item : result) {
+                        chatList.add(item);
+                        Log.v(TAG, "" + item.CreatedAt());
+                    }
+                }
+                else {
+                    mChatTable.insert(chatpublics[0]);
                 }
 
             } catch (Exception exception) {
@@ -74,12 +79,6 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
                 Log.e(TAG, exception.getMessage());
                 Log.e(TAG, "Exception ending");
             }
-        }
-
-        else {
-            mChatTable.insert(chatpublics[0]);
-
-        }
             return chatList;
     }
 
@@ -88,11 +87,13 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
     protected void onPostExecute(List<ChatPublic> result){
         super.onPostExecute(result);
         Log.v(TAG, "Setting messages");
-        ChatArrayAdapter chatArrayAdapter;
-        chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
-        for(ChatPublic item : result) {
-            Log.v(TAG, "Adding message");
-            ChatArrayAdapter.addMessage(item);
+        if(result != null) {
+            ChatArrayAdapter chatArrayAdapter;
+            chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
+            for (ChatPublic item : result) {
+                Log.v(TAG, "Adding message");
+                ChatArrayAdapter.addMessage(item);
+            }
         }
     }
 }

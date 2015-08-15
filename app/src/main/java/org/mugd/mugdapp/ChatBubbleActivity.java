@@ -111,7 +111,8 @@ public class ChatBubbleActivity extends AppCompatActivity {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String a =  telephonyManager.getDeviceId();
         ChatPublic chatpublic = new ChatPublic(chatText.getText().toString(),this,a);
-        
+        AzureChatServiceInteraction acsi = new AzureChatServiceInteraction(this);
+        acsi.execute(chatpublic);
         chatText.setText("");
         //side = !side;
         return true;

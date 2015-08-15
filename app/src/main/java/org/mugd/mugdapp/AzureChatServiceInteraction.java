@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Adish Jain on 07-08-2015.
  */
-public class AzureChatServiceInteraction extends AsyncTask<Void, Void, List<ChatPublic>>{
+public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, List<ChatPublic>>{
 
     private final static String TAG = "ACSI";
 
@@ -55,26 +55,32 @@ public class AzureChatServiceInteraction extends AsyncTask<Void, Void, List<Chat
     }
 
     @Override
-    protected List<ChatPublic> doInBackground(Void... voids) {
+    protected List<ChatPublic> doInBackground(ChatPublic... chatpublics) {
         Log.v(TAG,"Getting Messages");
-        try{
-            final MobileServiceList<ChatPublic> result = mChatTable
-                    .orderBy("__createdAt", QueryOrder.Ascending)
-                    .execute().    get();
-            Log.v(TAG, "Running background task");
-            chatList.clear();
-            for(ChatPublic item : result){
-                chatList.add(item);
-                Log.v(TAG,"" + item.CreatedAt());
-            }
+        if(chatpublics[0]==null) {
+            try {
+                final MobileServiceList<ChatPublic> result = mChatTable
+                        .orderBy("__createdAt", QueryOrder.Ascending)
+                        .execute().get();
+                Log.v(TAG, "Running background task");
+                chatList.clear();
+                for (ChatPublic item : result) {
+                    chatList.add(item);
+                    Log.v(TAG, "" + item.CreatedAt());
+                }
 
-        }catch (Exception exception){
-            Log.e(TAG, "Exception starting");
-            Log.e(TAG, exception.getMessage());
-            Log.e(TAG, "Exception ending");
+            } catch (Exception exception) {
+                Log.e(TAG, "Exception starting");
+                Log.e(TAG, exception.getMessage());
+                Log.e(TAG, "Exception ending");
+            }
         }
 
-        return chatList;
+        else {
+            mChatTable.insert(chatpublics[0]);
+
+        }
+            return chatList;
     }
 
 

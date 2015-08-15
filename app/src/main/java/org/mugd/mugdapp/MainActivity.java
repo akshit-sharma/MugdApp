@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
 
-        new AzureMobileServiceInteraction(this).execute();
-        new AzureChatServiceInteraction(this).execute();
+
+
 
 
 //        Intent ams = new Intent(this,AzureMobileService.class);
@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_events:
                 if(BuildConfig.DEBUG)
                     Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
+                new AzureMobileServiceInteraction(this).execute();
                 Intent eventIntent = new Intent(this,FullEventsList.class);
                 startActivity(eventIntent);
                 break;
@@ -135,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_second_fragment:
                 if(BuildConfig.DEBUG)
                     Toast.makeText(getApplicationContext(),"Chat activity",Toast.LENGTH_SHORT).show();
+
+                new AzureChatServiceInteraction(this).execute();
                 Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
                 startActivity(chatIntent);
                 break;

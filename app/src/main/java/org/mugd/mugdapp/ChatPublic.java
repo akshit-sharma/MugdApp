@@ -22,13 +22,13 @@ public class ChatPublic {
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return dateFormat.format(__createdAt);
     }
-    public ChatPublic(String Message , Context context){
+    public ChatPublic(String Message , Context context , String name){
 //        WifiManager manager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
 //        WifiInfo info = manager.getConnectionInfo();
 //        String address = info.getMacAddress();
 //        this.Name = address;
-          TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-          this.Name = telephonyManager.getDeviceId();
+         // TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+          this.Name = name;
           this.Message = Message;
 
     }

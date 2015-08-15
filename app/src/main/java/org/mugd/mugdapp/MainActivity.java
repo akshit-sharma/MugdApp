@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import static java.lang.System.exit;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,11 +62,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        exit(0);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
         Intent ams = new Intent(this,AzureMobileService.class);
         startService(ams);
+        Intent acs = new Intent(this,AzureChatService.class);
+        startActivity(acs);
 
     }
 

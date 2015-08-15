@@ -41,6 +41,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import static java.lang.System.exit;
+
 public class ChatBubbleActivity extends AppCompatActivity {
     private static final String TAG = "ChatActivity";
 
@@ -124,10 +126,17 @@ public class ChatBubbleActivity extends AppCompatActivity {
     }
 
     private boolean sendChatMessage(){
-        chatArrayAdapter.add(new ChatMessage(side, chatText.getText().toString()));
+        chatArrayAdapter.add(new ChatPublic(chatText.getText().toString(),getApplicationContext()));
         chatText.setText("");
         //side = !side;
         return true;
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this,MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     /*

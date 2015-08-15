@@ -59,12 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
 
         Intent ams = new Intent(this,AzureMobileService.class);
         startService(ams);
+        Intent acs = new Intent(this,AzureChatService.class);
+        startService(acs);
 
     }
 

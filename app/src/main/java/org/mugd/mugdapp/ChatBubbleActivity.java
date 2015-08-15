@@ -114,7 +114,7 @@ public class ChatBubbleActivity extends AppCompatActivity {
         AzureChatServiceInteraction acsi = new AzureChatServiceInteraction(this);
         acsi.execute(chatpublic);
         chatText.setText("");
-        //side = !side;
+        side = !side;
         return true;
     }
     @Override

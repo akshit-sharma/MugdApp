@@ -55,11 +55,11 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
     }
 
     @Override
-    protected List<ChatPublic> doInBackground(ChatPublic... chatpublics) {
+    protected List<ChatPublic> doInBackground(ChatPublic... chatPublics) {
         Log.v(TAG,"Getting Messages");
-        chatList = null;
+
             try {
-                if(chatpublics==null) {
+                if(chatPublics.length==0) {
                     final MobileServiceList<ChatPublic> result = mChatTable
                             .orderBy("__createdAt", QueryOrder.Ascending)
                             .execute().get();
@@ -71,12 +71,12 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
                     }
                 }
                 else {
-                    mChatTable.insert(chatpublics[0]);
+                    mChatTable.insert(chatPublics[0]);
                 }
 
             } catch (Exception exception) {
                 Log.e(TAG, "Exception starting");
-                Log.e(TAG, exception.getMessage());
+           //     Log.e(TAG, exception.getMessage());
                 Log.e(TAG, "Exception ending");
             }
             return chatList;
@@ -86,8 +86,8 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
     @Override
     protected void onPostExecute(List<ChatPublic> result){
         super.onPostExecute(result);
-        Log.v(TAG, "Setting messages");
-        if(result != null) {
+        if(result.size()!=0) {
+            Log.v(TAG, "Setting messages");
             ChatArrayAdapter chatArrayAdapter;
             chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
             for (ChatPublic item : result) {

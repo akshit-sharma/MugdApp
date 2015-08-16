@@ -1,10 +1,12 @@
 package org.mugd.mugdapp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -58,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
-
-
-
-
 //        Intent ams = new Intent(this,AzureMobileService.class);
 //        startService(ams);
 //
@@ -79,18 +76,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+
+        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
+
     }
 
     /*
@@ -134,11 +132,12 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.nav_second_fragment:
                 if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(),"Chat activity",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Chat Fragment",Toast.LENGTH_SHORT).show();
 
                 new AzureChatServiceInteraction(this).execute();
-                Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
-                startActivity(chatIntent);
+//                Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
+//                startActivity(chatIntent);
+                fragmentClass = PublicChatFragment.class;
                 break;
 
             default:
@@ -149,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             fragment = (Fragment) fragmentClass.newInstance();
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -162,6 +162,18 @@ public class MainActivity extends AppCompatActivity {
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
 
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
 

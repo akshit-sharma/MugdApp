@@ -16,7 +16,7 @@ public class notifyme extends ActionBarActivity {
 
     public static final String SENDER_ID = "599869999924";
     public static MobileServiceClient mClient;
-    public Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +26,11 @@ public class notifyme extends ActionBarActivity {
             mClient = new MobileServiceClient(
                     "https://mugd-app.azure-mobile.net/",
                     "EEkrmAJgegNSaCsgIaRQDTAmbAqZRZ90",
-                    context
+                    this
             );
 
             NotificationsManager.handleNotifications(this, SENDER_ID, MyHandler.class);
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

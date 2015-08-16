@@ -1,6 +1,7 @@
 package org.mugd.mugdapp;
 
-import com.microsoft.windowsazure.notifications.NotificationsHandler;import android.app.NotificationManager;
+import com.microsoft.windowsazure.notifications.NotificationsHandler;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ public class MyHandler extends NotificationsHandler {
                 }
                 catch(Exception e) {
                     // handle error
+                    e.printStackTrace();
                 }
                 return null;
             }

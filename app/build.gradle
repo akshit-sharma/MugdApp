@@ -30,5 +30,4 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0+'
     compile 'com.google.android.gms:play-services-base:6.5.87'
     compile(group: 'com.microsoft.azure', name: 'azure-notifications-handler', version: '1.0.1', ext: 'jar')
-    compile(group: 'com.microsoft.azure', name: 'azure-notifications-handler', version: '1.0.1', ext: 'jar')
 }

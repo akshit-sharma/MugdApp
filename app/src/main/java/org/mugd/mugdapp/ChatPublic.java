@@ -16,12 +16,12 @@ public class ChatPublic {
     public String Name;
     public String Message;
     public String Id;
-    public Date __createdAt;
-    public String CreatedAt() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        return dateFormat.format(__createdAt);
-    }
+//    public Date __createdAt;
+//    public String CreatedAt() {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat(
+//                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//        return dateFormat.format(__createdAt);
+//    }
     public ChatPublic(String Message , Context context , String name){
 //        WifiManager manager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
 //        WifiInfo info = manager.getConnectionInfo();

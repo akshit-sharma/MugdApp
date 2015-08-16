@@ -123,6 +123,7 @@ public class PublicChatFragment extends Fragment {
         // TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         //String a =  telephonyManager.getDeviceId();
         String a = "hello";
+        Log.v(TAG,"Sending message to ACSI");
         ChatPublic chatpublic = new ChatPublic(chatText.getText().toString(),activity,a);
         AzureChatServiceInteraction acsi = new AzureChatServiceInteraction(activity);
         acsi.execute(chatpublic);

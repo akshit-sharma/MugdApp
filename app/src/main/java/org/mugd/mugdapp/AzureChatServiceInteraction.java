@@ -61,22 +61,24 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
             try {
                 if(chatPublics.length==0) {
                     final MobileServiceList<ChatPublic> result = mChatTable
-                            .orderBy("__createdAt", QueryOrder.Ascending)
+                            .orderBy("__createdAt", QueryOrder.Descending)
                             .execute().get();
-                    Log.v(TAG, "Running background task");
+                    Log.v(TAG, "Running syncing task");
                     chatList.clear();
-                    for (ChatPublic item : result) {
-                        chatList.add(item);
-                        Log.v(TAG, "" + item.CreatedAt());
+                    ChatPublic cp;
+                    for (int i=result.size()-1;i>=0;i--) {
+                        cp = result.get(i);
+                        chatList.add(cp);
                     }
                 }
                 else {
+                    Log.v(TAG, "Inserting in background");
                     mChatTable.insert(chatPublics[0]);
                 }
 
             } catch (Exception exception) {
                 Log.e(TAG, "Exception starting");
-           //     Log.e(TAG, exception.getMessage());
+                Log.e(TAG, exception.getMessage());
                 Log.e(TAG, "Exception ending");
             }
             return chatList;
@@ -92,9 +94,11 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
             ChatArrayAdapter chatArrayAdapter;
             chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
             for (ChatPublic item : result) {
-                Log.v(TAG, "Adding message");
+                //Log.v(TAG, "Adding message");
                 ChatArrayAdapter.addMessage(item);
             }
+        }else {
+            Log.v(TAG, "completed inserting in background");
         }
     }
 }

@@ -3,7 +3,6 @@ package org.mugd.mugdapp;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Created by Adish Jain on 07-08-2015.
  */
-public class AzureChatServiceInteraction extends AsyncTask<Void, Void, List<ChatPublic>>{
+public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, List<ChatPublic>>{
 
     private final static String TAG = "ACSI";
 
@@ -56,39 +55,46 @@ public class AzureChatServiceInteraction extends AsyncTask<Void, Void, List<Chat
     }
 
     @Override
-    protected List<ChatPublic> doInBackground(Void... voids) {
+    protected List<ChatPublic> doInBackground(ChatPublic... chatPublics) {
         Log.v(TAG,"Getting Messages");
-        try{
 
-            final MobileServiceList<ChatPublic> result = mChatTable
-                    .orderBy("__createdAt", QueryOrder.Ascending)
-                    .execute().get();
-            Log.v(TAG, "Running background task");
-            chatList.clear();
-            for (ChatPublic item : result) {
-                chatList.add(item);
-                Log.v(TAG, "" + item.CreatedAt());
+            try {
+                if(chatPublics.length==0) {
+                    final MobileServiceList<ChatPublic> result = mChatTable
+                            .orderBy("__createdAt", QueryOrder.Ascending)
+                            .execute().get();
+                    Log.v(TAG, "Running background task");
+                    chatList.clear();
+                    for (ChatPublic item : result) {
+                        chatList.add(item);
+                        Log.v(TAG, "" + item.CreatedAt());
+                    }
+                }
+                else {
+                    mChatTable.insert(chatPublics[0]);
+                }
+
+            } catch (Exception exception) {
+                Log.e(TAG, "Exception starting");
+           //     Log.e(TAG, exception.getMessage());
+                Log.e(TAG, "Exception ending");
             }
-
-        }catch (Exception exception){
-            Log.e(TAG, "Exception starting");
-            Log.e(TAG, exception.getMessage());
-            Log.e(TAG, "Exception ending");
-        }
-
-        return chatList;
+            return chatList;
     }
 
 
     @Override
     protected void onPostExecute(List<ChatPublic> result){
         super.onPostExecute(result);
-        Log.v(TAG, "Setting messages");
-        ChatArrayAdapter chatArrayAdapter;
-        chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
-        for(ChatPublic item : result) {
-            Log.v(TAG, "Adding message");
-            ChatArrayAdapter.addMessage(item);
+        if(result.size()!=0) {
+            Log.v(TAG, "Setting messages");
+            ChatArrayAdapter.clearMessage();
+            ChatArrayAdapter chatArrayAdapter;
+            chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
+            for (ChatPublic item : result) {
+                Log.v(TAG, "Adding message");
+                ChatArrayAdapter.addMessage(item);
+            }
         }
     }
 }

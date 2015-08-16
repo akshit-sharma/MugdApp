@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -57,12 +58,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Intent acs = new Intent(this,AzureChatService.class);
-        startService(acs);
 
-        Intent ams = new Intent(this,AzureMobileService.class);
-        startService(ams);
 
+
+
+
+//        Intent ams = new Intent(this,AzureMobileService.class);
+//        startService(ams);
+//
+//        Intent acs = new Intent(this,AzureChatService.class);
+//        startService(acs);
     }
 
     @Override
@@ -123,12 +128,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
                 //Intent eventIntent = new Intent(this,FullEventsList.class);
                 //startActivity(eventIntent);
+                new AzureMobileServiceInteraction(this).execute();
                 fragmentClass = FullEventsListFragment.class;
                 break;
 
             case R.id.nav_second_fragment:
                 if(BuildConfig.DEBUG)
                     Toast.makeText(getApplicationContext(),"Chat activity",Toast.LENGTH_SHORT).show();
+
+                new AzureChatServiceInteraction(this).execute();
                 Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
                 startActivity(chatIntent);
                 break;

@@ -1,5 +1,6 @@
 package org.mugd.mugdapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,7 @@ public class ChatBubbleActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,9 +106,16 @@ public class ChatBubbleActivity extends AppCompatActivity {
     }
 
     private boolean sendChatMessage(){
-        chatArrayAdapter.add(new ChatPublic(chatText.getText().toString(),getApplicationContext()));
+       // chatArrayAdapter.add(new ChatPublic(chatText.getText().toString(),getApplicationContext()));
+
+       // TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        //String a =  telephonyManager.getDeviceId();
+        String a = "hello";
+        ChatPublic chatpublic = new ChatPublic(chatText.getText().toString(),this,a);
+        AzureChatServiceInteraction acsi = new AzureChatServiceInteraction(this);
+        acsi.execute(chatpublic);
         chatText.setText("");
-        //side = !side;
+        side = !side;
         return true;
     }
     @Override

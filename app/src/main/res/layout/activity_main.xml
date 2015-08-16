@@ -20,41 +20,8 @@
 
         <!-- The main content view -->
 
-        <fragment
-            android:name="org.mugd.mugdapp.FullEventsListFragment"
-            android:id="@+id/mainFrag"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
-
-        <!--
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nav Drawer"
-                android:id="@+id/button2"
-                android:layout_marginTop="56dp"
-                android:onClick="showNavDrawer"
-                android:layout_below="@+id/button"
-                android:layout_alignLeft="@+id/button"
-                android:layout_alignStart="@+id/button" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Events List"
-                android:id="@+id/button3"
-                android:onClick="azureMobileService"
-                android:layout_below="@+id/button2"
-                android:layout_alignLeft="@+id/button2"
-                android:layout_alignStart="@+id/button2"
-                android:layout_marginTop="57dp" />
-
-        -->
-
         <FrameLayout
-            android:id="@+id/flContent"
+            android:id="@+id/mainFrag"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

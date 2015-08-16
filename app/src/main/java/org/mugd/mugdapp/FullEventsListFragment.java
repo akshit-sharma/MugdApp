@@ -91,11 +91,12 @@ public class FullEventsListFragment extends Fragment {
 
     private void refreshEntries(){
         Log.i(TAG,"Entries refreshed");
-        /*
+
         ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(activity.getApplicationContext());
         eventsList = cbi.initialiseEvents();
         cbi.closeDB();
-        */
+
+        /*
         eventsList = new ArrayList<>();
         Events events = new Events();
         events.imageUri = "faaltu";
@@ -104,7 +105,7 @@ public class FullEventsListFragment extends Fragment {
         events.Date = new Date();
         events.college = "Venue";
         eventsList.add(events);
-
+        */
     }
 
     private void refreshList(){

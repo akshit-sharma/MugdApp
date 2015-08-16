@@ -3,6 +3,8 @@ package org.mugd.mugdapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -111,12 +113,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem){
 
+        Fragment fragment = null;
+
+        Class fragmentClass = null;
+
         switch (menuItem.getItemId()){
             case R.id.nav_events:
                 if(BuildConfig.DEBUG)
                     Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
                 //Intent eventIntent = new Intent(this,FullEventsList.class);
                 //startActivity(eventIntent);
+                fragmentClass = FullEventsListFragment.class;
                 break;
 
             case R.id.nav_second_fragment:
@@ -128,8 +135,21 @@ public class MainActivity extends AppCompatActivity {
 
             default:
                 Toast.makeText(getApplicationContext(),"default_one",Toast.LENGTH_SHORT).show();
+                fragmentClass = FullEventsListFragment.class;
         }
 
+
+        try{
+            fragment = (Fragment) fragmentClass.newInstance();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
+
+        // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();

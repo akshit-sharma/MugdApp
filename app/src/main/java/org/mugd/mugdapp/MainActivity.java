@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()){
             case R.id.nav_events:
                 if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(),"Event Activity",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Event Fragment",Toast.LENGTH_SHORT).show();
                 //Intent eventIntent = new Intent(this,FullEventsList.class);
                 //startActivity(eventIntent);
                 new AzureMobileServiceInteraction(this).execute();

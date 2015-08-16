@@ -37,10 +37,10 @@ public class ChatArrayAdapter extends ArrayAdapter {
         chatMessageList.add(object);
         Log.v(TAG, "Total Message in chatMessageList "+chatMessageList.size());
     }
+
     public static void clearMessage(){
         chatMessageList = new ArrayList();
     }
-
 
     public ChatArrayAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);

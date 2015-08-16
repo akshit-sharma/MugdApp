@@ -2,31 +2,36 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.mugd.mugdapp" >
 
-    <permission android:name="org.mugd.mugdapp.permission.C2D_MESSAGE"
+    <permission
+        android:name="org.mugd.mugdapp.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="org.mugd.mugdapp.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <receiver android:name="com.microsoft.windowsazure.notifications.NotificationsBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver
+            android:name="com.microsoft.windowsazure.notifications.NotificationsBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="org.mugd.mugdapp" />
             </intent-filter>
         </receiver>
-        <meta-data android:name="com.google.android.gms.version"
+
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
@@ -57,9 +62,14 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+
         <activity
             android:name=".ChatBubbleActivity"
             android:label="@string/title_activity_chat_bubble" >
+        </activity>
+        <activity
+            android:name=".notifyme"
+            android:label="@string/title_activity_notifyme" >
         </activity>
     </application>
 

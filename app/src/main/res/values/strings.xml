@@ -20,5 +20,6 @@
     <string name="title_activity_event_details">EventDetails</string>
     <string name="transition_album_cover">I do not know what to write here</string>
     <string name="title_activity_chat_bubble">ChatBubbleActivity</string>
+    <string name="title_activity_notifyme">notifyme</string>
 
 </resources>

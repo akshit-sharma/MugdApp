@@ -1,6 +1,7 @@
 package org.mugd.mugdapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -15,6 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.notifications.NotificationsManager;
+
+import java.net.MalformedURLException;
+
 
 public class PublicChatFragment extends Fragment {
 
@@ -26,6 +32,9 @@ public class PublicChatFragment extends Fragment {
     private ListView listView;
     private EditText chatText;
     private Button buttonSend;
+    public static final String SENDER_ID = "599869999924";
+    public static MobileServiceClient mClient;
+    public Context context;
 
     public PublicChatFragment() {
         // Required empty public constructor
@@ -38,6 +47,7 @@ public class PublicChatFragment extends Fragment {
         Log.v(TAG, "onCreate called");
 
         chatArrayAdapter = new ChatArrayAdapter(activity.getApplicationContext(), R.layout.activity_chat_singlemessage);
+
 
     }
 
@@ -55,6 +65,18 @@ public class PublicChatFragment extends Fragment {
 
         this.setListeners();
         this.listConfig();
+
+        try {
+            mClient = new MobileServiceClient(
+                    "https://mugd-app.azure-mobile.net/",
+                    "EEkrmAJgegNSaCsgIaRQDTAmbAqZRZ90",
+                    activity
+            );
+
+            NotificationsManager.handleNotifications(activity, SENDER_ID, MyHandler.class);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }

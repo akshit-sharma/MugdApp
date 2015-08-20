@@ -19,7 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by akshi_000 on 24-07-2015.
+ *  Async for Event Loading
+ *
+ *  This file downloads and update events in background
+ *
+ * @author Akshit
+ *
  */
 public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Events>>{
 
@@ -71,6 +76,7 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                 ClientDatabaseInteraction cbi;
                 cbi = new ClientDatabaseInteraction(context);
                // Log.v("AMSI", "Values are");
+                cbi.clearPrevious();
                 for(Events item : eventsList){
                     cbi.onCreate(cbi.getWritableDatabase());
                     cbi.insertCommand("Events", item);
@@ -81,6 +87,7 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                 }
                 Log.v("AMSI", "Finished background task");
                 cbi.closeDB();
+
             }catch (Exception exception){
                 Log.e("AMSI", "Exception starting");
                 Log.e("AMSI", exception.getMessage());

@@ -51,6 +51,19 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
         super(context, name, factory, version);
     }
 
+    /*
+     * drops and recreate tables
+     */
+    public void clearPrevious(){
+        this.dropTables();
+        this.createTables();
+    }
+
+    private void dropTables(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        this.dropTables(db);
+    }
+
     private void createTable(SQLiteDatabase db, String TABLE_NAME){
         HashMap<String,Class> fieldsMaped;
         HashMap<String,String> columnsSchema;
@@ -87,7 +100,8 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
         db.execSQL(createTableCommand.toString());
     }
 
-    private void createTables(SQLiteDatabase db) {
+    public void createTables() {
+        SQLiteDatabase db = this.getWritableDatabase();
         for(String TABLE_NAME : TABLE_NAMES){
             createTable(db, TABLE_NAME);
         }
@@ -96,10 +110,11 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        createTables(db);
+        createTables();
     }
 
     private void dropTable(SQLiteDatabase db,String TABLE_NAME){
+        Log.v(TAG,"Dropping "+TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
@@ -170,7 +185,7 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
             selectQuery += allColumns.next()+", ";
         }
         selectQuery = selectQuery.substring(0,selectQuery.lastIndexOf(","));
-        selectQuery += " FROM " + "Events";
+        selectQuery += " FROM " + "Events "+" ORDER BY DATE DESC " ;
 
         Log.v(TAG, "Select Query is " + selectQuery);
 
@@ -182,6 +197,7 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
         if (cursor.moveToFirst()) {
             do {
                 Events event = getEvent(cursor);
+                Log.v(TAG,"created at "+event.__createdAt+" Date is "+event.Date+" Name is "+event.id);
                 events.add(event);
             } while (cursor.moveToNext());
         }

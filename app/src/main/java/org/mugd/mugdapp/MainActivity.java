@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
+        new AzureMobileServiceInteraction(this).execute();
+        new AzureChatServiceInteraction(this).execute();
+
     }
 
     @Override
@@ -122,21 +125,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch (menuItem.getItemId()){
             case R.id.nav_events:
-                if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(),"Event Fragment",Toast.LENGTH_SHORT).show();
                 //Intent eventIntent = new Intent(this,FullEventsList.class);
                 //startActivity(eventIntent);
-                new AzureMobileServiceInteraction(this).execute();
+      //          new AzureMobileServiceInteraction(this).execute();
                 fragmentClass = FullEventsListFragment.class;
                 break;
 
             case R.id.nav_second_fragment:
-                if(BuildConfig.DEBUG)
-                    Toast.makeText(getApplicationContext(),"Chat Fragment",Toast.LENGTH_SHORT).show();
-
-                new AzureChatServiceInteraction(this).execute();
 //                Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
 //                startActivity(chatIntent);
+                new AzureChatServiceInteraction(this).execute();
                 fragmentClass = PublicChatFragment.class;
                 break;
 

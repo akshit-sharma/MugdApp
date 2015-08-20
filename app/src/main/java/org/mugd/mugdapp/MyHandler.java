@@ -25,7 +25,7 @@ public class MyHandler extends NotificationsHandler {
 
             protected Void doInBackground(Void... params) {
                 try {
-                    notifyme.mClient.getPush().register(gcmRegistrationId, null);
+                    PublicChatFragment.mClient.getPush().register(gcmRegistrationId, null);
                     return null;
                 }
                 catch(Exception e) {
@@ -42,6 +42,9 @@ public class MyHandler extends NotificationsHandler {
         String nhMessage = bundle.getString("TESTING PUSH(notification)");
 
         sendNotification(nhMessage);
+
+        new AzureChatServiceInteraction(context).execute();
+        new AzureMobileServiceInteraction(context).execute();
     }
 
     private void sendNotification(String msg) {

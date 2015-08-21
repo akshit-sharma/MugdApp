@@ -185,7 +185,10 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
             selectQuery += allColumns.next()+", ";
         }
         selectQuery = selectQuery.substring(0,selectQuery.lastIndexOf(","));
-        selectQuery += " FROM " + "Events "+" ORDER BY DATE DESC " ;
+        selectQuery += " FROM " + "Events "+
+              //  " WHERE DATE < "+
+              //  new SimpleDateFormat("yyyy MM dd").format(new  Date())+
+                " ORDER BY DATE ASC " ;
 
         Log.v(TAG, "Select Query is " + selectQuery);
 
@@ -197,8 +200,9 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
         if (cursor.moveToFirst()) {
             do {
                 Events event = getEvent(cursor);
-                Log.v(TAG,"created at "+event.__createdAt+" Date is "+event.Date+" Name is "+event.id);
-                events.add(event);
+                Log.v(TAG, "created at " + event.__createdAt + " Date is " + event.Date + " Name is " + event.id);
+                if(event.Date.after(new Date()))
+                    events.add(event);
             } while (cursor.moveToNext());
         }
 

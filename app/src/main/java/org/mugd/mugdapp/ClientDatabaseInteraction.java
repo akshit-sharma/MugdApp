@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class ClientDatabaseInteraction extends SQLiteOpenHelper{
 
-    private static final String TAG = "ClientDatabase";
+    private static final String TAG = "CDI";
 
     private static final int DATABASE_VERSION = 2;
 

@@ -2,6 +2,7 @@ package org.mugd.mugdapp;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,12 +19,18 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.LinkedList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
     public boolean toastError = true;
+
+
+    public static List<MenuItems> mi;
 
     /*
      *  for Nav Drawer
@@ -57,11 +64,31 @@ public class MainActivity extends AppCompatActivity {
         new AzureMobileServiceInteraction(this).execute();
         new AzureChatServiceInteraction(this).execute();
 
+
+        mi = new LinkedList<MenuItems>();
+        mi.add(new MenuItems(getDrawablefromInt(R.drawable.chat_icon), "Chat"));
+        mi.add(new MenuItems(getDrawablefromInt(R.drawable.event_icon), "Events"));
+
+
+        Fragment fragment = null;
+
+        Class fragmentClass = MenuFragment.class;
+
+        try{
+            fragment = (Fragment) fragmentClass.newInstance();
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
 
 //        Intent ams = new Intent(this,AzureMobileService.class);
 //        startService(ams);
@@ -119,28 +146,46 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem){
 
+
+        switch (menuItem.getItemId()){
+            case R.id.nav_events:
+                this.openFragment("Events");
+                break;
+
+            case R.id.nav_second_fragment:
+                this.openFragment("Chat");
+                break;
+
+            default:
+                this.openFragment("default");
+        }
+
+        // Highlight the selected item, update the title, and close the drawer
+        menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+        mDrawer.closeDrawers();
+
+    }
+
+    public void openFragment(String fragmentName){
+
         Fragment fragment = null;
 
         Class fragmentClass = null;
 
-        switch (menuItem.getItemId()){
-            case R.id.nav_events:
-                //Intent eventIntent = new Intent(this,FullEventsList.class);
-                //startActivity(eventIntent);
-      //          new AzureMobileServiceInteraction(this).execute();
+        switch (fragmentName){
+            case "Events":
                 fragmentClass = FullEventsListFragment.class;
                 break;
 
-            case R.id.nav_second_fragment:
-//                Intent chatIntent = new Intent(this,ChatBubbleActivity.class);
-//                startActivity(chatIntent);
+            case "Chat":
                 new AzureChatServiceInteraction(this).execute();
                 fragmentClass = PublicChatFragment.class;
                 break;
 
             default:
                 Toast.makeText(getApplicationContext(),"default_one",Toast.LENGTH_SHORT).show();
-                fragmentClass = FullEventsListFragment.class;
+                fragmentClass = MenuFragment.class;
         }
 
 
@@ -154,11 +199,6 @@ public class MainActivity extends AppCompatActivity {
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
-
-        // Highlight the selected item, update the title, and close the drawer
-        menuItem.setChecked(true);
-        setTitle(menuItem.getTitle());
-        mDrawer.closeDrawers();
 
     }
 
@@ -174,5 +214,9 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+
+    private Drawable getDrawablefromInt(int image){
+        return getResources().getDrawable(image);
+    }
 
 }

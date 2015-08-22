@@ -1,3 +1,5 @@
+package org.mugd.mugdapp;
+
 /**
  * Created by akshit on 23-08-2015.
  */

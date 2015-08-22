@@ -41,8 +41,8 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
 
         try {
             mClient = new MobileServiceClient(
-                    "https://mugd-app.azure-mobile.net/",
-                    "EEkrmAJgegNSaCsgIaRQDTAmbAqZRZ90",
+                    Authorization.url,
+                    Authorization.key,
                     context
             );
 

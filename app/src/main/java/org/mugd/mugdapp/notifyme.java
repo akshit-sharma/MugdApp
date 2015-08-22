@@ -24,8 +24,8 @@ public class notifyme extends ActionBarActivity {
 
         try {
             mClient = new MobileServiceClient(
-                    "https://mugd-app.azure-mobile.net/",
-                    "EEkrmAJgegNSaCsgIaRQDTAmbAqZRZ90",
+                    Authorization.url,
+                    Authorization.key,
                     context
             );
 

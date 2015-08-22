@@ -48,8 +48,8 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
 
         try {
             mClient = new MobileServiceClient(
-                "https://mugd-app.azure-mobile.net/",
-                "EEkrmAJgegNSaCsgIaRQDTAmbAqZRZ90",
+                Authorization.url,
+                Authorization.key,
                 context
             );
 

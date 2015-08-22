@@ -1,0 +1,14 @@
+
+
+/*
+ *  place this file in app/src/main/java/org/mugd/mugdapp if in directory view
+ *  or in app/java/org.mugd.mugdapp/Authorization if in Android View
+ *
+ */
+
+public class Authorization {
+
+    public static final String url = "<Enter URL here>";
+    public static final String key = "<Enter key here>";
+
+}

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         mi = new LinkedList<MenuItems>();
         mi.add(new MenuItems(getDrawablefromInt(R.drawable.chat_icon), "Chat"));
         mi.add(new MenuItems(getDrawablefromInt(R.drawable.event_icon), "Events"));
+        mi.add(new MenuItems(getDrawablefromInt(R.drawable.chat_icon), "Idea"));
 
 
         Fragment fragment = null;
@@ -156,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
                 this.openFragment("Chat");
                 break;
 
+            case R.id.nav_third_fragment:
+                this.openFragment("Idea");
+                break;
+
             default:
                 this.openFragment("default");
         }
@@ -167,13 +174,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void openFragment(String fragmentName){
-
-        Fragment fragment = null;
+    private Class developerCheck(String wanted){
 
         Class fragmentClass = null;
 
-        switch (fragmentName){
+        switch (wanted){
             case "Events":
                 fragmentClass = FullEventsListFragment.class;
                 break;
@@ -183,22 +188,43 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = PublicChatFragment.class;
                 break;
 
+            case "Idea":
+                if(BuildConfig.DEBUG){
+
+                }
+                Snackbar.make(getCurrentFocus().getRootView(),"Will be added shortly",Snackbar.LENGTH_SHORT).show();
+
+                break;
+
             default:
                 Toast.makeText(getApplicationContext(),"default_one",Toast.LENGTH_SHORT).show();
                 fragmentClass = MenuFragment.class;
         }
 
+        return fragmentClass;
 
-        try{
-            fragment = (Fragment) fragmentClass.newInstance();
+    }
 
-        }catch (Exception ex){
-            ex.printStackTrace();
+    public void openFragment(String fragmentName){
+
+        Fragment fragment = null;
+
+        Class fragmentClass = this.developerCheck(fragmentName);
+
+        if(fragmentClass != null) {
+
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
+
         }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
 
     }
 

@@ -21,6 +21,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.notifications.NotificationsManager;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +31,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
+    private static boolean mIsInForeground = false;
+
+    public static final String SENDER_ID = "1049";
+    public static MobileServiceClient mClient;
+
 
     public boolean toastError = true;
 
@@ -48,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mIsInForeground = false;
+
+        //Registering for gcm
+        NotificationsManager.handleNotifications(this, SENDER_ID, PushNotificationHandler.class);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         mi = new LinkedList<MenuItems>();
         mi.add(new MenuItems(getDrawablefromInt(R.drawable.chat_icon), "Chat"));
         mi.add(new MenuItems(getDrawablefromInt(R.drawable.event_icon), "Events"));
-        mi.add(new MenuItems(getDrawablefromInt(R.drawable.chat_icon), "Idea"));
+        mi.add(new MenuItems(getDrawablefromInt(R.drawable.idea_icon), "Idea"));
 
 
         Fragment fragment = null;
@@ -89,9 +103,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        mIsInForeground = false;
+
+    }
+
+    public static boolean isInForeground(){
+        return mIsInForeground;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
+        mIsInForeground = true;
 
 //        Intent ams = new Intent(this,AzureMobileService.class);
 //        startService(ams);

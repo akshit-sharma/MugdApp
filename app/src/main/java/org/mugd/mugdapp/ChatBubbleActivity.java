@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import static java.lang.System.exit;
 
 public class ChatBubbleActivity extends AppCompatActivity {
     private static final String TAG = "ChatActivity";
@@ -159,7 +156,7 @@ public class ChatBubbleActivity extends AppCompatActivity {
                 startActivity(eventIntent);
                 break;
 
-            case R.id.nav_second_fragment:
+            case R.id.nav_chats:
                 if (BuildConfig.DEBUG)
                     Toast.makeText(getApplicationContext(), "Chat activity", Toast.LENGTH_SHORT).show();
                 Intent chatIntent = new Intent(this, ChatBubbleActivity.class);

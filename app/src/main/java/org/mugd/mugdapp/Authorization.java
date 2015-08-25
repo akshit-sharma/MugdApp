@@ -5,7 +5,7 @@ package org.mugd.mugdapp;
  */
 public class Authorization {
 
-    private static final String url = "<Enter url here>";
-    private static final String key = "<Enter key here>";
+    public static final String url = "https://mugd-app.azure-mobile.net/";
+    public static final String key = "hpzWFNUBodQhyOFWxiRclEMceZlPgs88";
 
 }

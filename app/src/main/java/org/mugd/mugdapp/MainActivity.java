@@ -1,10 +1,8 @@
 package org.mugd.mugdapp;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -15,7 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean mIsInForeground = false;
 
-    public static final String SENDER_ID = "1049";
+    public static final String SENDER_ID = "1050";
     public static MobileServiceClient mClient;
 
 
@@ -182,11 +179,11 @@ public class MainActivity extends AppCompatActivity {
                 this.openFragment("Events");
                 break;
 
-            case R.id.nav_second_fragment:
+            case R.id.nav_chats:
                 this.openFragment("Chat");
                 break;
 
-            case R.id.nav_third_fragment:
+            case R.id.nav_idea:
                 this.openFragment("Idea");
                 break;
 

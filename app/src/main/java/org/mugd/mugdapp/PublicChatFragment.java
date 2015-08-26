@@ -145,7 +145,7 @@ public class PublicChatFragment extends Fragment {
         // TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         //String a =  telephonyManager.getDeviceId();
         //String a = "hello";
-        String name = new MainActivity().android_id;
+        String name = MainActivity.tmDevice;
         Log.v(TAG,"Sending message to ACSI");
         ChatPublic chatpublic = new ChatPublic(chatText.getText().toString(),activity,name);
         AzureChatServiceInteraction acsi = new AzureChatServiceInteraction(activity);

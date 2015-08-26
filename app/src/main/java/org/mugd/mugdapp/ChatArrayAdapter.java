@@ -67,10 +67,11 @@ public class ChatArrayAdapter extends ArrayAdapter {
         chatText.setText("  "+chatPublicObj.Message);
       //  chatText.setBackgroundResource(chatMessageObj.left ? R.drawable.bubble_left : R.drawable.bubble_right);
       //  singleMessageContainer.setGravity(chatPublicObj.left ? Gravity.LEFT : Gravity.RIGHT);
-        if(chatPublicObj.Name == new MainActivity().androidId)
-        {
-
-            singleMessageContainer.setBackgroundColor(Color.parseColor("#3385FF"));
+        if (chatPublicObj.Name != null) {
+            if (chatPublicObj.Name.contentEquals( MainActivity.tmDevice)) {
+                Log.d("pubName is :", "" + chatPublicObj.Name);
+                singleMessageContainer.setBackgroundColor(Color.parseColor("#3385FF"));
+            }
         }
         return row;
     }

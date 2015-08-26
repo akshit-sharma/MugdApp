@@ -35,6 +35,8 @@ public class ChatPublic {
 //        this.Name = address;
          // TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
           this.Name = name;
+        Log.d("Name : ", ""+name);
+        Log.d("pubName(ChatPublic : )", Name);
           this.Message = Message;
           this.CreatedAt = new Date();
 

@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
+        if(menuItem.getTitle() != "Idea")
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
 

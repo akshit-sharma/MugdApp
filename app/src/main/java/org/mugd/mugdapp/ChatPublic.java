@@ -37,10 +37,7 @@ public class ChatPublic {
           this.Name = name;
           this.Message = Message;
           this.CreatedAt = new Date();
-            if(__createdAt != null){
-                Log.v(TAG,"correcting CreatedAt");
-                this.CreatedAt = __createdAt;
-            }
+
     }
 
 

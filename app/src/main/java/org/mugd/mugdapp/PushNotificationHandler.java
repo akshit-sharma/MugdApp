@@ -37,6 +37,7 @@ public class PushNotificationHandler extends NotificationsHandler {
                 }
                 catch(Exception e) {
                     // handle error
+                    e.printStackTrace();
                 }
                 return null;
             }

@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         mIsInForeground = false;
 
         //Registering for gcm
-        NotificationsManager.handleNotifications(this, SENDER_ID, PushNotificationHandler.class);
+        NotificationsManager.handleNotifications(this, androidId, PushNotificationHandler.class);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

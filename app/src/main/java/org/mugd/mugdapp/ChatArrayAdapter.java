@@ -69,7 +69,6 @@ public class ChatArrayAdapter extends ArrayAdapter {
       //  singleMessageContainer.setGravity(chatPublicObj.left ? Gravity.LEFT : Gravity.RIGHT);
         if(chatPublicObj.Name == new MainActivity().androidId)
         {
-
             singleMessageContainer.setBackgroundColor(Color.parseColor("#3385FF"));
         }
         return row;

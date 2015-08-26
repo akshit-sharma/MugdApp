@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
 
+import java.net.MalformedURLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean mIsInForeground = false;
 
-    public static final String SENDER_ID = "1050";
+    public static final String SENDER_ID = "1051";
     public static MobileServiceClient mClient;
 
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
-    public  String tmDevice, tmSerial , androidId;
+    public static String tmDevice, tmSerial , androidId;
 
    private Button chat;
     @Override
@@ -74,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
         mIsInForeground = false;
 
         //Registering for gcm
-        NotificationsManager.handleNotifications(this, androidId, PushNotificationHandler.class);
+        NotificationsManager.handleNotifications(this, SENDER_ID, PushNotificationHandler.class);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

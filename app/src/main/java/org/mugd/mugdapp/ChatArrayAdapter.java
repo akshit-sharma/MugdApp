@@ -33,9 +33,9 @@ public class ChatArrayAdapter extends ArrayAdapter {
         Log.v(TAG, "Total Message in chatMessageList "+getCount());
     }
     public static void addMessage(ChatPublic object) {
-        Log.v(TAG, "Adding message");
+    //    Log.v(TAG, "Adding message");
         chatMessageList.add(object);
-        Log.v(TAG, "Total Message in chatMessageList "+chatMessageList.size());
+    //    Log.v(TAG, "Total Message in chatMessageList "+chatMessageList.size());
     }
 
     public static void clearMessage(){

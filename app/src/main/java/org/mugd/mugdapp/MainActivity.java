@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
-        new AzureMobileServiceInteraction(this).execute();
         new AzureChatServiceInteraction(this).execute();
+        new AzureMobileServiceInteraction(this).execute();
 
 
         mi = new LinkedList<MenuItems>();
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (wanted){
             case "Events":
-                new AzureMobileServiceInteraction(this).execute();
+  //              new AzureMobileServiceInteraction(this).execute();
                 fragmentClass = FullEventsListFragment.class;
                 break;
 

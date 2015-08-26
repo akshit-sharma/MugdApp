@@ -68,11 +68,14 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
                     ChatPublic cp;
                     for (int i=result.size()-1;i>=0;i--) {
                         cp = result.get(i);
+
+
                         chatList.add(cp);
                     }
                 }
                 else {
                     Log.v(TAG, "Inserting in background");
+
                     mChatTable.insert(chatPublics[0]);
                 }
 
@@ -95,6 +98,7 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
             chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
             for (ChatPublic item : result) {
                 //Log.v(TAG, "Adding message");
+
                 ChatArrayAdapter.addMessage(item);
             }
         }else {

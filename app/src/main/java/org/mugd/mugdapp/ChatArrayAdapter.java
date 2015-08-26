@@ -6,6 +6,7 @@ package org.mugd.mugdapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -66,7 +67,11 @@ public class ChatArrayAdapter extends ArrayAdapter {
         chatText.setText("  "+chatPublicObj.Message);
       //  chatText.setBackgroundResource(chatMessageObj.left ? R.drawable.bubble_left : R.drawable.bubble_right);
       //  singleMessageContainer.setGravity(chatPublicObj.left ? Gravity.LEFT : Gravity.RIGHT);
-        singleMessageContainer.setGravity(Gravity.LEFT);
+        if(chatPublicObj.Name == new MainActivity().androidId)
+        {
+
+            singleMessageContainer.setBackgroundColor(Color.parseColor("#3385FF"));
+        }
         return row;
     }
 

@@ -24,10 +24,10 @@ import java.util.Set;
  *
  *
  */
-public class ClientDatabaseInteraction extends SQLiteOpenHelper{
+public class ClientDatabaseInteraction{// extends SQLiteOpenHelper{
 
     private static final String TAG = "CDI";
-
+/*
     private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_NAME = "MugdLoacal";
@@ -51,9 +51,9 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
         super(context, name, factory, version);
     }
 
-    /*
-     * drops and recreate tables
-     */
+
+     // drops and recreate tables
+
     public void clearPrevious(){
         this.dropTables();
         this.createTables(getWritableDatabase());
@@ -144,15 +144,15 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
         if(Type.contains("String")){
 
         }else if(Type.contains("Date")){
-            /*
-            try {
-                value = formatter.format(formatter.parse(value.toString()));
-                Log.v(TAG, "Formating Date");
-            }catch (ParseException pe){
-                Log.e(TAG,"Exception in formatting date");
-                Log.e(TAG,pe.getMessage());
-            }
-            */
+
+//            try {
+//                value = formatter.format(formatter.parse(value.toString()));
+//                Log.v(TAG, "Formating Date");
+//            }catch (ParseException pe){
+//                Log.e(TAG,"Exception in formatting date");
+//                Log.e(TAG,pe.getMessage());
+//            }
+//
         }
         if(value!=null)
             return value.toString();
@@ -306,5 +306,7 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
 
 
     }
+
+    */
 
 }

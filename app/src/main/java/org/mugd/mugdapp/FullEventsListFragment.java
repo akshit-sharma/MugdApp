@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -90,9 +91,9 @@ public class FullEventsListFragment extends Fragment {
     private void refreshEntries(){
         Log.i(TAG,"Entries refreshed");
 
-        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(activity.getApplicationContext());
-        eventsList = cbi.initialiseEvents();
-        cbi.closeDB();
+//        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(activity.getApplicationContext());
+//        eventsList = cbi.initialiseEvents();
+//        cbi.closeDB();
 
         /*
         eventsList = new ArrayList<>();
@@ -104,6 +105,15 @@ public class FullEventsListFragment extends Fragment {
         events.college = "Venue";
         eventsList.add(events);
         */
+    }
+
+    public static void clearAllEvent(){
+        eventsList = new LinkedList<>();
+    }
+
+    public static void addEvent(Events event){
+        Log.v(TAG,"Adding "+event.Title);
+        eventsList.add(event);
     }
 
     private void refreshList(){

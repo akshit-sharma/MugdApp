@@ -78,9 +78,9 @@ public class FullEventsList extends AppCompatActivity {
     }
 
     private void refreshList(){
-        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(this);
-        eventsList = cbi.initialiseEvents();
-        cbi.closeDB();
+//        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(this);
+//        eventsList = cbi.initialiseEvents();
+//        cbi.closeDB();
 
         ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(this,eventsList);
         rv.setAdapter(adapter);

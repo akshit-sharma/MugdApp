@@ -68,13 +68,14 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                         .orderBy("__createdAt", QueryOrder.Descending)
                         .execute().    get();
                 Log.v("AMSI", "Running background task");
-                eventsList.clear();
+                //eventsList.clear();
+                FullEventsListFragment.clearAllEvent();
                 for(Events item : result){
-                    eventsList.add(item);
+                    FullEventsListFragment.addEvent(item);
                  //   Log.v("AMSI_date", " " + item.Date);
                 }
 
-                FullEventsListFragment.eventsList = eventsList;
+
                 /*
                 ClientDatabaseInteraction cbi;
                 cbi = new ClientDatabaseInteraction(context);

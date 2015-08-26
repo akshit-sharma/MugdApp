@@ -56,7 +56,7 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
      */
     public void clearPrevious(){
         this.dropTables();
-        this.createTables();
+        this.createTables(getWritableDatabase());
     }
 
     private void dropTables(){
@@ -100,8 +100,8 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
         db.execSQL(createTableCommand.toString());
     }
 
-    public void createTables() {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public void createTables(SQLiteDatabase db) {
+        //SQLiteDatabase db = this.getWritableDatabase();
         for(String TABLE_NAME : TABLE_NAMES){
             createTable(db, TABLE_NAME);
         }
@@ -110,7 +110,7 @@ public class ClientDatabaseInteraction extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        createTables();
+        createTables(db);
     }
 
     private void dropTable(SQLiteDatabase db,String TABLE_NAME){

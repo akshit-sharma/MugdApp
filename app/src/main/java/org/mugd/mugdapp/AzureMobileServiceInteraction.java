@@ -73,6 +73,9 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                     eventsList.add(item);
                  //   Log.v("AMSI_date", " " + item.Date);
                 }
+
+                FullEventsListFragment.eventsList = eventsList;
+                /*
                 ClientDatabaseInteraction cbi;
                 cbi = new ClientDatabaseInteraction(context);
                // Log.v("AMSI", "Values are");
@@ -87,7 +90,7 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                 }
                 Log.v("AMSI", "Finished background task");
                 cbi.closeDB();
-
+                */
             }catch (Exception exception){
                 Log.e("AMSI", "Exception starting");
                 Log.e("AMSI", exception.getMessage());
@@ -99,7 +102,7 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
     @Override
     protected void onPostExecute(List<Events> result){
         super.onPostExecute(result);
-
+        Log.v("AMSI","PostExecute function");
     }
 
 }

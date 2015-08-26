@@ -31,6 +31,9 @@ public class FullEventsListFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        if(eventsList==null){
+            Log.e(TAG,"Why event null");
+        }
         if (activity==null){
             Log.e(TAG,"Why is Activity NULL !! ");
         }else {
@@ -105,6 +108,13 @@ public class FullEventsListFragment extends Fragment {
 
     private void refreshList(){
         Log.i(TAG,"List refreshed");
+        if(eventsList==null){
+            Log.e(TAG,"Why eventList null");
+        }
+        if(eventsList.size()==0){
+            Log.e(TAG,"Why is eventList zero");
+        }
+
         ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(activity,eventsList);
         rv.setAdapter(adapter);
     }

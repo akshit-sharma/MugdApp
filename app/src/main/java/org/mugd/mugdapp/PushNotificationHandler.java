@@ -37,6 +37,7 @@ public class PushNotificationHandler extends NotificationsHandler {
                 }
                 catch(Exception e) {
                     // handle error
+                    e.printStackTrace();
                 }
                 return null;
             }
@@ -51,11 +52,11 @@ public class PushNotificationHandler extends NotificationsHandler {
         String nhMessage = bundle.getString("message");
         String nhName = bundle.getString("name");
 
-        if(!MainActivity.isInForeground()) {
+        //if(!MainActivity.isInForeground()) {
             sendNotification(nhMessage);
-        }else{
-            ChatArrayAdapter.addMessage(new ChatPublic(nhMessage,context,nhName));
-        }
+//        }else{
+//            ChatArrayAdapter.addMessage(new ChatPublic(nhMessage,context,nhName));
+//        }
     }
 
     private void sendNotification(String msg) {
@@ -69,7 +70,7 @@ public class PushNotificationHandler extends NotificationsHandler {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(ctx)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Notification Hub Demo")
+                        .setContentTitle("MugdApp")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);

@@ -1,4 +1,6 @@
-/app/src/main/java/org/mugd/mugdapp/Authorization.java
+
+#removing authorization file
+app/src/main/java/org/mugd/mugdapp/Authorization.java
 
 .gradle
 /local.properties

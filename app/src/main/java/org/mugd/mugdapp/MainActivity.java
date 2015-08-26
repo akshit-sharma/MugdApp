@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (wanted){
             case "Events":
-  //              new AzureMobileServiceInteraction(this).execute();
+                new AzureMobileServiceInteraction(this).execute();
                 fragmentClass = FullEventsListFragment.class;
                 break;
 

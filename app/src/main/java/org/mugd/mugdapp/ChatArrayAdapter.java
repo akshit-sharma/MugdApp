@@ -31,7 +31,7 @@ public class ChatArrayAdapter extends ArrayAdapter {
         Log.v(TAG, "Adding message");
         chatMessageList.add(object);
         super.add(object);
-        Log.v(TAG, "Total Message in chatMessageList "+getCount());
+        Log.v(TAG, "Total Message in chatMessageList " + getCount());
     }
     public static void addMessage(ChatPublic object) {
     //    Log.v(TAG, "Adding message");
@@ -67,11 +67,16 @@ public class ChatArrayAdapter extends ArrayAdapter {
         chatText.setText("  "+chatPublicObj.Message);
       //  chatText.setBackgroundResource(chatMessageObj.left ? R.drawable.bubble_left : R.drawable.bubble_right);
       //  singleMessageContainer.setGravity(chatPublicObj.left ? Gravity.LEFT : Gravity.RIGHT);
-        if(chatPublicObj.Name!=null)
-        if(chatPublicObj.Name.contentEquals(MainActivity.tmDevice))
-        {
-            singleMessageContainer.setBackgroundColor(Color.parseColor("#3385FF"));
+        if(chatPublicObj.Name!=null) {
+            if (chatPublicObj.Name.contentEquals(MainActivity.tmDevice)) {
+                singleMessageContainer.setBackgroundColor(Color.parseColor("#3976d6"));
+                singleMessageContainer.setGravity( Gravity.RIGHT );
+            }
+            else
+                singleMessageContainer.setBackgroundColor(Color.parseColor("#79b0cf"));
+            singleMessageContainer.setGravity( Gravity.RIGHT );
         }
+
         return row;
     }
 

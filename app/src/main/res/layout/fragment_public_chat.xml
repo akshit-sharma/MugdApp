@@ -13,7 +13,7 @@
         android:layout_gravity="center">
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:weightSum="1"
@@ -26,16 +26,46 @@
         </LinearLayout>
 
         <ListView
-            android:layout_width="match_parent"
-            android:layout_height="491dp"
+            android:layout_width="wrap_content"
+            android:layout_height="441dp"
             android:id="@+id/chatList"
-            android:layout_weight=".8"
+
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="#F78181"
-            android:divider="#BDBDBD"/>
+            android:layout_alignParentStart="true"/>
+            <!--android:background="#F78181"-->
+            <!--android:divider="#000000"-->
 
+
+
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:id="@+id/chatBox"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/chatButton"
+            android:hint="Type your message here..." />
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Refresh Chat"
+            android:id="@+id/refresh"
+            android:layout_above="@+id/chatList"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="#ffffff"
+            android:clickable="false"
+            android:background="#3976d6"
+            android:shadowColor="#e8e8e8"
+            android:backgroundTint="#79b0cf" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,18 +75,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:layout_weight=".9"
-            android:id="@+id/chatBox"
-            android:layout_below="@+id/linearLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/chatButton"
-            android:layout_toStartOf="@+id/chatButton" />
 
     </RelativeLayout>
 

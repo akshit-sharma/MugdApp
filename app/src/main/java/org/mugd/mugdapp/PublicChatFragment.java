@@ -15,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
@@ -31,7 +32,7 @@ public class PublicChatFragment extends Fragment {
     private ChatArrayAdapter chatArrayAdapter;
     private ListView listView;
     private EditText chatText;
-    private Button buttonSend;
+    private Button buttonSend, buttonRefresh;
     public static final String SENDER_ID = "599869999924";
     public static MobileServiceClient mClient;
     public Context context;
@@ -55,11 +56,12 @@ public class PublicChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.v(TAG,"onCreateView called");
+        Log.v(TAG, "onCreateView called");
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_public_chat, container, false);
         buttonSend = (Button) view.findViewById(R.id.chatButton);
+        buttonRefresh = (Button) view.findViewById(R.id.refresh);
         listView = (ListView) view.findViewById(R.id.chatList);
         chatText = (EditText) view.findViewById(R.id.chatBox);
 
@@ -77,6 +79,7 @@ public class PublicChatFragment extends Fragment {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
 
         return view;
     }
@@ -117,7 +120,21 @@ public class PublicChatFragment extends Fragment {
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendChatMessage();
+                if ((chatText.getText().length()!=0))
+                    sendChatMessage();
+                else if (chatText.getText().length()==0) {
+                    Toast.makeText(activity,"Please type something",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+        buttonRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new AzureChatServiceInteraction(activity).execute();
+                ((MainActivity) activity).openFragment("Chat");
+
             }
         });
 

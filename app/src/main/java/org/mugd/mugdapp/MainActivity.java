@@ -1,6 +1,7 @@
 package org.mugd.mugdapp;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
 
-
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         tmDevice = "" + tm.getDeviceId();
         tmSerial = "" + tm.getSimSerialNumber();
         androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     protected void onPause() {
@@ -214,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
+        if(!(menuItem.getTitle()=="Idea"))
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
 

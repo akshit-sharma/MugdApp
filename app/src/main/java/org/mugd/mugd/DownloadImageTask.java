@@ -1,4 +1,4 @@
-package org.mugd.mugdapp;
+package org.mugd.mugd;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

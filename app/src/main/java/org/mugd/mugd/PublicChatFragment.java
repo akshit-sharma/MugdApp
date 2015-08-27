@@ -1,8 +1,7 @@
-package org.mugd.mugdapp;
+package org.mugd.mugd;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

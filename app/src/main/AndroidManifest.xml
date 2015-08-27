@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.mugd.mugdapp" >
+    package="org.mugd.mugd"
+    android:versionCode="2"
+    android:versionName="1.1.2">
 
     <permission
-        android:name="org.mugd.mugdapp.permission.C2D_MESSAGE"
+        android:name="org.mugd.mugd.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="org.mugd.mugdapp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="org.mugd.mugd.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -17,7 +19,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/plogo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <receiver
@@ -26,7 +28,7 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="org.mugd.mugdapp" />
+                <category android:name="org.mugd.mugd" />
             </intent-filter>
         </receiver>
 
@@ -35,7 +37,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="org.mugd.mugd.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,31 +46,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FullEventsList"
+            android:name="org.mugd.mugd.FullEventsList"
             android:label="@string/title_activity_full_events_list" >
         </activity>
         <activity
-            android:name=".EventDetails"
+            android:name="org.mugd.mugd.EventDetails"
             android:label="@string/title_activity_event_details" >
         </activity>
 
         <service
-            android:name=".AzureMobileService"
+            android:name="org.mugd.mugd.AzureMobileService"
             android:enabled="true"
             android:exported="true" >
         </service>
         <service
-            android:name=".AzureChatService"
+            android:name="org.mugd.mugd.AzureChatService"
             android:enabled="true"
             android:exported="true" >
         </service>
 
         <activity
-            android:name=".ChatBubbleActivity"
+            android:name="org.mugd.mugd.ChatBubbleActivity"
             android:label="@string/title_activity_chat_bubble" >
         </activity>
         <activity
-            android:name=".notifyme"
+            android:name="org.mugd.mugd.notifyme"
             android:label="@string/title_activity_notifyme" >
         </activity>
     </application>

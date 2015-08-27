@@ -1,15 +1,9 @@
-package org.mugd.mugdapp;
+package org.mugd.mugd;
 
 import android.content.Context;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Adish Jain on 04-08-2015.

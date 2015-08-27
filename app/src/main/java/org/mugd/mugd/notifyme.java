@@ -1,4 +1,4 @@
-package org.mugd.mugdapp;
+package org.mugd.mugd;
 
 import android.content.Context;
 import android.support.v7.app.ActionBarActivity;

@@ -1,4 +1,4 @@
-package org.mugd.mugdapp;
+package org.mugd.mugd;
 
 /**
  * Created by Adish Jain on 30-07-2015.
@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,11 +69,11 @@ public class ChatArrayAdapter extends ArrayAdapter {
         if(chatPublicObj.Name!=null) {
             if (chatPublicObj.Name.contentEquals(MainActivity.tmDevice)) {
                 singleMessageContainer.setBackgroundColor(Color.parseColor("#3976d6"));
-                singleMessageContainer.setGravity( Gravity.RIGHT );
+
             }
             else
                 singleMessageContainer.setBackgroundColor(Color.parseColor("#79b0cf"));
-            singleMessageContainer.setGravity( Gravity.RIGHT );
+
         }
 
         return row;

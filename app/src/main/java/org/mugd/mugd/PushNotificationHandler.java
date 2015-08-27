@@ -1,4 +1,4 @@
-package org.mugd.mugdapp;
+package org.mugd.mugd;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

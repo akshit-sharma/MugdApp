@@ -1,4 +1,4 @@
-package org.mugd.mugdapp;
+package org.mugd.mugd;
 
 import com.microsoft.windowsazure.notifications.NotificationsHandler;import android.app.NotificationManager;
 import android.app.PendingIntent;

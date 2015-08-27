@@ -65,11 +65,7 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
                             .execute().get();
                     Log.v(TAG, "Running syncing task");
                     chatList.clear();
-                    ChatPublic cp;
-                    for (int i=result.size()-1;i>=0;i--) {
-                        cp = result.get(i);
-
-
+                    for (ChatPublic cp:result){
                         chatList.add(cp);
                     }
                 }

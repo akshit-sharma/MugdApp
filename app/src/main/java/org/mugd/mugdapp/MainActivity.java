@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
 
+import java.net.MalformedURLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean mIsInForeground = false;
 
-    public static final String SENDER_ID = "1050";
+    public static final String SENDER_ID = "1051";
     public static MobileServiceClient mClient;
 
 
@@ -69,13 +70,16 @@ public class MainActivity extends AppCompatActivity {
         tmDevice = "" + tm.getDeviceId();
         tmSerial = "" + tm.getSimSerialNumber();
         androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-        Log.d("Unique id is : ",""+androidId);
+
+        Log.i(TAG,tmDevice + " | " + tmSerial+ " | "+androidId);
+
         UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
         String deviceId = deviceUuid.toString();
         mIsInForeground = false;
 
         //Registering for gcm
         NotificationsManager.handleNotifications(this, androidId, PushNotificationHandler.class);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -210,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
-        if(menuItem.getTitle() != "Idea")
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
 
@@ -222,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (wanted){
             case "Events":
-  //              new AzureMobileServiceInteraction(this).execute();
+                new AzureMobileServiceInteraction(this).execute();
                 fragmentClass = FullEventsListFragment.class;
                 break;
 

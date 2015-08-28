@@ -23,6 +23,8 @@ import java.util.List;
  */
 public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Events>>{
 
+    private static final String TAG = "AMSi";
+
     private Context context;
 
     private MobileServiceClient mClient;
@@ -62,35 +64,35 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
                 final MobileServiceList<Events> result = mEventsTable
                         .orderBy("__createdAt", QueryOrder.Descending)
                         .execute().    get();
-                Log.v("AMSI", "Running background task");
+                Log.v(TAG, "Running background task");
                 //eventsList.clear();
                 FullEventsListFragment.clearAllEvent();
                 for(Events item : result){
                     FullEventsListFragment.addEvent(item);
-                 //   Log.v("AMSI_date", " " + item.Date);
+                 //   Log.v(TAG, "date " + item.Date);
                 }
 
 
                 /*
                 ClientDatabaseInteraction cbi;
                 cbi = new ClientDatabaseInteraction(context);
-               // Log.v("AMSI", "Values are");
+               // Log.v(TAG, "Values are");
                 cbi.clearPrevious();
                 for(Events item : eventsList){
                     cbi.onCreate(cbi.getWritableDatabase());
                     cbi.insertCommand("Events", item);
-                  //  Log.v("AMSI"," "+item);
-                  //  Log.v("AMSI_id", " " + item.id);
-                  //  Log.v("AMSI_date", " " + item.Date);
-                  //  Log.v("AMSI_imageUri", " " + item.imageUri);
+                  //  Log.v(TAG," "+item);
+                  //  Log.v(TAG, "id " + item.id);
+                  //  Log.v(TAG, "date " + item.Date);
+                  //  Log.v(TAG, "imageUri " + item.imageUri);
                 }
-                Log.v("AMSI", "Finished background task");
+                Log.v(TAG, "Finished background task");
                 cbi.closeDB();
                 */
             }catch (Exception exception){
-                Log.e("AMSI", "Exception starting");
-                Log.e("AMSI", exception.getMessage());
-                Log.e("AMSI", "Exception ending");
+                Log.e(TAG, "Exception starting");
+                Log.e(TAG, exception.getMessage());
+                Log.e(TAG, "Exception ending");
             }
             return eventsList;
     }
@@ -98,7 +100,7 @@ public class AzureMobileServiceInteraction extends AsyncTask<Void, Void, List<Ev
     @Override
     protected void onPostExecute(List<Events> result){
         super.onPostExecute(result);
-        Log.v("AMSI","PostExecute function");
+        Log.v(TAG,"PostExecute function");
     }
 
 }

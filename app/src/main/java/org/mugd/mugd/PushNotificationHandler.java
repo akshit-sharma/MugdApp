@@ -52,7 +52,7 @@ public class PushNotificationHandler extends NotificationsHandler {
         String nhMessage = bundle.getString("message");
         String nhName = bundle.getString("name");
 
-        //if(!MainActivity.isInForeground()) {
+//        if(!MainActivity.isInForeground()) {
             sendNotification(nhMessage);
 //        }else{
 //            ChatArrayAdapter.addMessage(new ChatPublic(nhMessage,context,nhName));

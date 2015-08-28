@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
 
+import java.net.MalformedURLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -33,9 +34,9 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private Context context;
     public String android_id;
 
+    private boolean chat_boolean,events_boolean;
 
     private static boolean mIsInForeground = false;
 
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+        this.initialseClient();
 
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         tmDevice = "" + tm.getDeviceId();
@@ -194,28 +197,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem){
 
+        boolean setMenu = false;
 
         switch (menuItem.getItemId()){
             case R.id.nav_events:
-                this.openFragment("Events");
+                if(this.openFragment("Events")){
+                    setMenu = true;
+                }
                 break;
 
             case R.id.nav_chats:
-                this.openFragment("Chat");
+                if(this.openFragment("Chat")){
+                    setMenu = true;
+                }
                 break;
 
             case R.id.nav_idea:
-                this.openFragment("Idea");
+                if(this.openFragment("Idea")){
+                    setMenu = true;
+                }
                 break;
 
             default:
-                this.openFragment("default");
+                if(this.openFragment("default")){
+                    setMenu = true;
+                }
         }
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
-        if(!(menuItem.getTitle()=="Idea"))
-        setTitle(menuItem.getTitle());
+        if(setMenu) {
+            setTitle(menuItem.getTitle());
+        }
         mDrawer.closeDrawers();
 
     }
@@ -227,7 +240,15 @@ public class MainActivity extends AppCompatActivity {
         switch (wanted){
             case "Events":
                 new AzureMobileServiceInteraction(this).execute();
-                fragmentClass = FullEventsListFragment.class;
+                if(!events_boolean) {
+                    events_boolean = FullEventsListFragment.isReady();
+                }
+                if(events_boolean)
+                    fragmentClass = FullEventsListFragment.class;
+                else {
+                    Snackbar.make(getCurrentFocus().getRootView(), "Syncing Events", Snackbar.LENGTH_SHORT).show();
+                    return null;
+                }
                 break;
 
             case "Chat":
@@ -252,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void openFragment(String fragmentName){
+    public boolean openFragment(String fragmentName){
 
         Fragment fragment = null;
 
@@ -265,13 +286,17 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (Exception ex) {
                 ex.printStackTrace();
+                return false;
             }
 
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.mainFrag, fragment).commit();
 
+            return true;
         }
+
+        return false;
 
     }
 
@@ -292,4 +317,19 @@ public class MainActivity extends AppCompatActivity {
         return getResources().getDrawable(image);
     }
 
+
+    private void initialseClient(){
+
+        try {
+            mClient = new MobileServiceClient(
+                    Authorization.url,
+                    Authorization.key,
+                    this
+            );
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

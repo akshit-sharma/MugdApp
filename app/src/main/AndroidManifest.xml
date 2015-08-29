@@ -69,10 +69,6 @@
             android:name="org.mugd.mugd.ChatBubbleActivity"
             android:label="@string/title_activity_chat_bubble" >
         </activity>
-        <activity
-            android:name="org.mugd.mugd.notifyme"
-            android:label="@string/title_activity_notifyme" >
-        </activity>
     </application>
 
 </manifest>

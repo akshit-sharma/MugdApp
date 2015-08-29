@@ -74,7 +74,7 @@ public class PublicChatFragment extends Fragment {
                     activity
             );
 
-            NotificationsManager.handleNotifications(activity, SENDER_ID, MyHandler.class);
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

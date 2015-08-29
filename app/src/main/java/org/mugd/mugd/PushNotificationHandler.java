@@ -52,6 +52,9 @@ public class PushNotificationHandler extends NotificationsHandler {
         String nhMessage = bundle.getString("message");
         String nhName = bundle.getString("name");
 
+        Log.d(TAG, "From: " + nhName);
+        Log.d(TAG, "Message: " + nhMessage);
+
 //        if(!MainActivity.isInForeground()) {
             sendNotification(nhMessage);
 //        }else{

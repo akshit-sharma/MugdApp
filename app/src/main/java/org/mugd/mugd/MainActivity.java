@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public String android_id;
 
+    public static final boolean gotKey = false;         //make app easier to debug
+
     private boolean chat_boolean,events_boolean;
 
     private static boolean mIsInForeground = false;
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         mIsInForeground = false;
 
         //Registering for gcm
-        NotificationsManager.handleNotifications(this, deviceId, PushNotificationHandler.class);
+        NotificationsManager.handleNotifications(this, androidId, PushNotificationHandler.class);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);

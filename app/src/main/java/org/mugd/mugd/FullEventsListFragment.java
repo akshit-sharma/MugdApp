@@ -2,6 +2,7 @@ package org.mugd.mugd;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -89,7 +90,7 @@ public class FullEventsListFragment extends Fragment {
     }
 
     private void refreshEntries(){
-        Log.i(TAG,"Entries refreshed");
+        Log.i(TAG, "Entries refreshed");
 
 //        ClientDatabaseInteraction cbi = new ClientDatabaseInteraction(activity.getApplicationContext());
 //        eventsList = cbi.initialiseEvents();
@@ -116,16 +117,23 @@ public class FullEventsListFragment extends Fragment {
         eventsList.add(event);
     }
 
-    private void refreshList(){
-        Log.i(TAG,"List refreshed");
+    public static boolean isReady(){
         if(eventsList==null){
-            Log.e(TAG,"Why eventList null");
+            return false;
+        }
+        return true;
+    }
+
+    private void refreshList(){
+        Log.i(TAG, "List refreshed");
+        if(eventsList==null){
+            Log.e(TAG, "Why eventList null");
         }
         if(eventsList.size()==0){
-            Log.e(TAG,"Why is eventList zero");
+            Log.e(TAG, "Why is eventList zero");
         }
 
-        ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(activity,eventsList);
+        ShowAllEventsAdapter adapter = new ShowAllEventsAdapter(activity, eventsList);
         rv.setAdapter(adapter);
     }
 

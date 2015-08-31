@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.mugd.mugd.PublicChatFragment"
-    android:weightSum="1"
-    android:background="#BDBDBD">
+    android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +31,6 @@
 
             android:divider="@null"
             android:dividerHeight="5dp"
-            android:background="#BDBDBD"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />

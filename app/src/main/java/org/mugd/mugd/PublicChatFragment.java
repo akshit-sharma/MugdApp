@@ -131,8 +131,9 @@ public class PublicChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                new AzureChatServiceInteraction(activity).execute();
+                new AzureChatServiceInteraction(activity,buttonRefresh).execute();
                 ((MainActivity) activity).openFragment("Chat");
+                buttonRefresh.setClickable(false);
 
             }
         });

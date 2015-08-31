@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
+                mDrawer.openDrawer(GravityCompat.END);
                 return true;
         }
 
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
-        if(!(menuItem.getTitle()=="Idea"))
+        if(!(menuItem.getTitle().equals("Idea")))
         setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
 

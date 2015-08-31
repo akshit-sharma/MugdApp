@@ -8,11 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -63,17 +65,33 @@ public class ChatArrayAdapter extends ArrayAdapter {
         singleMessageContainer = (LinearLayout) row.findViewById(R.id.singleMessageContainer);
         ChatPublic chatPublicObj = getItem(position);
         chatText = (TextView) row.findViewById(R.id.singleMessage);
-        chatText.setText("  "+chatPublicObj.Message);
+        chatText.setText("  "+chatPublicObj.Message+"  ");
       //  chatText.setBackgroundResource(chatMessageObj.left ? R.drawable.bubble_left : R.drawable.bubble_right);
       //  singleMessageContainer.setGravity(chatPublicObj.left ? Gravity.LEFT : Gravity.RIGHT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
         if(chatPublicObj.Name!=null) {
             if (chatPublicObj.Name.contentEquals(MainActivity.tmDevice)) {
                 singleMessageContainer.setBackgroundColor(Color.parseColor("#3976d6"));
+                singleMessageContainer.setBackgroundResource(R.drawable.messageshape);
+
+
+                layoutParams.gravity = RelativeLayout.ALIGN_PARENT_RIGHT;
+
+                chatText.setLayoutParams(layoutParams);
 
             }
-            else
+            else {
                 singleMessageContainer.setBackgroundColor(Color.parseColor("#79b0cf"));
+                //singleMessageContainer.setGravity(Gravity.LEFT);
+                singleMessageContainer.setBackgroundResource(R.drawable.received_message_shape);
+                //chatText.setGravity(Gravity.LEFT);
+                layoutParams.gravity = RelativeLayout.ALIGN_PARENT_LEFT;
 
+                chatText.setLayoutParams(layoutParams);
+
+            }
         }
 
         return row;
@@ -82,6 +100,7 @@ public class ChatArrayAdapter extends ArrayAdapter {
     public Bitmap decodeToBitmap(byte[] decodedByte) {
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
+
 
 }
 

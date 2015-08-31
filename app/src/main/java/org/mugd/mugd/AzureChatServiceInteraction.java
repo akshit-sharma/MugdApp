@@ -1,8 +1,10 @@
 package org.mugd.mugd;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Button;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
@@ -30,7 +32,9 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
 
     public AzureChatServiceInteraction(Context context){
         this.context = context;
+        this.button = null;
     }
+    private Button button;
 
     protected void onPreExecute(){
         super.onPreExecute();
@@ -100,5 +104,12 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
         }else {
             Log.v(TAG, "completed inserting in background");
         }
+        if (button != null){
+            button.setClickable(true);
+        }
+    }
+    public AzureChatServiceInteraction(Context context, Button button){
+        this(context);
+        this.button = button;
     }
 }

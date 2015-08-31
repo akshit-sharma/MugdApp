@@ -30,9 +30,12 @@
             android:layout_height="441dp"
             android:id="@+id/chatList"
 
+            android:divider="@null"
+            android:dividerHeight="5dp"
+            android:background="#BDBDBD"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true" />
             <!--android:background="#F78181"-->
             <!--android:divider="#000000"-->
 
@@ -51,22 +54,6 @@
             android:hint="Type your message here..." />
 
         <Button
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Refresh Chat"
-            android:id="@+id/refresh"
-            android:layout_above="@+id/chatList"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textColor="#ffffff"
-            android:clickable="false"
-            android:background="#3976d6"
-            android:shadowColor="#e8e8e8"
-            android:backgroundTint="#79b0cf" />
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send"
@@ -75,6 +62,18 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refresh Chat"
+            android:id="@+id/refresh"
+            android:layout_below="@+id/chatBox"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:textColorHighlight="#0e21b7" />
+
 
     </RelativeLayout>
 

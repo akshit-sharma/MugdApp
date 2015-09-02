@@ -50,7 +50,8 @@ public class EventDetails extends AppCompatActivity {
 
         new DownloadImageTask(eventImage,eventImageProgressBar).execute(event.imageUri);
         eventTitle.setText(Events.extract(event, "Title"));
-        eventDescription.setText(Events.extract(event,"Desc"));
+        eventDescription.setText(Events.extract(event,"Desc")+"\n");
+
         eventVenue.setText(Events.extract(event,"college"));
         eventTime.setText(Events.extract(event,"Date"));
 

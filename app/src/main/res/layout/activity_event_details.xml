@@ -103,25 +103,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cvEventDescription"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Event Full Desc"
                     android:id="@+id/eventDesc"
+                    android:ellipsize="none"
                     android:transitionName="eventSmallDTransition"
                     android:layout_toRightOf="@id/eventImage"
                     android:layout_alignParentTop="true"
                     android:layout_below="@id/eventTitle"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 

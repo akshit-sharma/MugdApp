@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -119,22 +120,20 @@ public class PublicChatFragment extends Fragment {
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((chatText.getText().length()!=0))
+                if ((chatText.getText().toString().trim().length()!=0)) {
                     sendChatMessage();
-                else if (chatText.getText().length()==0) {
-                    Toast.makeText(activity,"Please type something",Toast.LENGTH_SHORT).show();
-
+                }
+                else {
+                    Snackbar.make(activity.getCurrentFocus(), "Please type something", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                buttonRefresh.setClickable(false);
                 new AzureChatServiceInteraction(activity,buttonRefresh).execute();
                 ((MainActivity) activity).openFragment("Chat");
-                buttonRefresh.setClickable(false);
-
             }
         });
 

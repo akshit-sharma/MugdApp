@@ -32,6 +32,7 @@ public class Events {
     Date __createdAt;
     Date __updatedAt;
     String __version;
+    String time;
 //    Date __deleted;
 
     static boolean small;
@@ -169,6 +170,7 @@ public class Events {
             formatter = new SimpleDateFormat("EEE, MMM d");
         }else {
             formatter = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+            //formatter = new SimpleDateFormat("yyyy MM dd ");
         }
 
 //        Log.v(TAG, "value addeding "+field+ " is " + value);
@@ -241,7 +243,8 @@ public class Events {
         if(Events.small){
             formatter = new SimpleDateFormat("EEE, MMM d");
         }else {
-            formatter = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+            //formatter = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+            formatter = new SimpleDateFormat("yyyy MM dd");
         }
 
         Object value;
@@ -251,6 +254,9 @@ public class Events {
             case "id" : returnValue = event.id;
                             break;
             case "Date" : returnValue = formatter.format(event.Date);
+                        if(!small){
+                            returnValue+=" "+event.time;
+                        }
                            break;
 
             case "Title" : returnValue = event.Title;

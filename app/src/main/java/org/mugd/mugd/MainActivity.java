@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String SENDER_ID = "1051";
     public static MobileServiceClient mClient;
 
+    private boolean lastFrag;
+
 
     public boolean toastError = true;
 
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
 
         this.initialseClient();
+        lastFrag = true;
 
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         tmDevice = "" + tm.getDeviceId();
@@ -205,24 +208,28 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_events:
                 if(this.openFragment("Events")){
                     setMenu = true;
+                    lastFrag = false;
                 }
                 break;
 
             case R.id.nav_chats:
                 if(this.openFragment("Chat")){
                     setMenu = true;
+                    lastFrag = false;
                 }
                 break;
 
             case R.id.nav_idea:
                 if(this.openFragment("Idea")){
                     setMenu = true;
+                    lastFrag = false;
                 }
                 break;
 
             default:
                 if(this.openFragment("default")){
                     setMenu = true;
+                    lastFrag = true;
                 }
         }
 
@@ -245,8 +252,10 @@ public class MainActivity extends AppCompatActivity {
                 if(!events_boolean) {
                     events_boolean = FullEventsListFragment.isReady();
                 }
-                if(events_boolean)
+                if(events_boolean) {
                     fragmentClass = FullEventsListFragment.class;
+                    lastFrag = false;
+                }
                 else {
                     Snackbar.make(getCurrentFocus().getRootView(), "Syncing Events", Snackbar.LENGTH_SHORT).show();
                     return null;
@@ -256,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
             case "Chat":
                 new AzureChatServiceInteraction(this).execute();
                 fragmentClass = PublicChatFragment.class;
+                lastFrag = false;
                 break;
 
             case "Idea":
@@ -267,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             default:
-                Toast.makeText(getApplicationContext(),"default_one",Toast.LENGTH_SHORT).show();
+                lastFrag = true;
                 fragmentClass = MenuFragment.class;
         }
 
@@ -319,6 +329,15 @@ public class MainActivity extends AppCompatActivity {
         return getResources().getDrawable(image);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(lastFrag){
+            //exit
+            finish();
+        }else{
+            this.openFragment("default");
+        }
+    }
 
     private void initialseClient(){
 

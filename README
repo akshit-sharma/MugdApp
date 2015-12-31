@@ -1,4 +1,10 @@
+This is a Cloud-Enbled android application which not only let users chat anonymously with anyone (having the application)
+but let them rate the different ideas popping up and also get aquainted with the events going on, its description and venue
+and everything else that is necessary.
 
+Initially this app was just meant to be used by a particular group of students for their comfort (No need for the poster pasting or 
+even going from class to class announcing) but its increased usage has left the developers (us) thinking to update it, modify
+its UI and let everyone enjoy this good deed of ours.
 
 /*
  *  place this file in app/src/main/java/org/mugd/mugdapp if in directory view

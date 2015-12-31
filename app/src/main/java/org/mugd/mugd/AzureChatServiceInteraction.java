@@ -96,11 +96,12 @@ public class AzureChatServiceInteraction extends AsyncTask<ChatPublic, Void, Lis
             ChatArrayAdapter.clearMessage();
             ChatArrayAdapter chatArrayAdapter;
             chatArrayAdapter = new ChatArrayAdapter(context, R.layout.activity_chat_singlemessage);
-            for (ChatPublic item : result) {
+            for (int i=0;i<result.size();) {
                 //Log.v(TAG, "Adding message");
 
-                ChatArrayAdapter.addMessage(item);
+                ChatArrayAdapter.addMessage(result.get(i++));
             }
+
         }else {
             Log.v(TAG, "completed inserting in background");
         }

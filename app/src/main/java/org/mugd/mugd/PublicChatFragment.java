@@ -2,6 +2,8 @@ package org.mugd.mugd;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -100,7 +102,8 @@ public class PublicChatFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
+//        Intent i = new Intent(getActivity(), MainActivity.class);
+//        startActivity(i);
         Log.v(TAG, "onDetach called");
 
     }
@@ -110,8 +113,12 @@ public class PublicChatFragment extends Fragment {
         chatText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    return sendChatMessage();
+               // if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                 //   return sendChatMessage();
+                //}
+                 if ((event.getAction() == KeyEvent.KEYCODE_BACK)) {
+                    Intent i = new Intent(getActivity(), MainActivity.class);
+                    startActivity(i);
                 }
                 return false;
             }
@@ -154,6 +161,10 @@ public class PublicChatFragment extends Fragment {
         });
 
     }
+
+
+
+
 
     private boolean sendChatMessage(){
         // chatArrayAdapter.add(new ChatPublic(chatText.getText().toString(),getApplicationContext()));

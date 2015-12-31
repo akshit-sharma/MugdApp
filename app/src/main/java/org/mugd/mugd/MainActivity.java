@@ -256,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
             case "Chat":
                 new AzureChatServiceInteraction(this).execute();
                 fragmentClass = PublicChatFragment.class;
+                
                 break;
 
             case "Idea":
